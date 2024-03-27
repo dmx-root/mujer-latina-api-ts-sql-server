@@ -1,8 +1,10 @@
-class DetOpQueve{
+import {Response} from 'express';
 
-    #items:Array<() => Promise< void | Response >> = [];
+export class Queue{
+
+    #items:Array<() => Promise< Response | void >> = [];
     
-    enqueve(item : () => Promise< void | Response >){
+    enqueve(item : () => Promise< Response | void>){
         this.#items.push( item );
     }
     dequeve(){
@@ -10,24 +12,6 @@ class DetOpQueve{
     }
     isEmpty(){
         return this.#items.length === 0;
-    }
-
-}
-const queve=new DetOpQueve();
-
-export async function runQueve(){ 
-    try {
-
-        while ( !queve.isEmpty() ) {
-    
-            const fn = queve.dequeve();
-            if (fn !== undefined)
-            await fn();
-    
-        }
-        
-    } catch (error) {
-        console.log(error)
     }
 
 }

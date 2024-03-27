@@ -7,24 +7,24 @@ interface DbResponse {
 
     statusCode: 1 | 0 | -1,
     message?: string,
-    data?:any
-    information?:string,
-    err?:HttpErrorResponse
+    data?: any
+    information?: string,
+    err?: HttpErrorResponse
 
 }
 
 export class Conexion {
 
-    private config:sql.config;
+    private config : sql.config;
     
     constructor(){
-        this.config=dbConfig;
+        this.config = dbConfig;
     };
 
     async execute(procedure : string, parameters : Array<dbParameters> = []) : Promise<any>{
         return new Promise(async (resolve : (cont : DbResponse) => void, reject : (cont : DbResponse) => void)=>{
 
-            let pool!:sql.ConnectionPool
+            let pool! : sql.ConnectionPool
             try {
 
                 pool = await new sql.ConnectionPool(this.config).connect();
@@ -36,7 +36,7 @@ export class Conexion {
                     information: 'ERROR AL EJECUTAR SP',
                     err: new HttpErrorResponse('NO SE PUDO CONECTAR A LA BASE DE DATOS',500)
                 };
-                reject(dbResponse)
+                reject( dbResponse )
                 return;
             }
 
@@ -62,7 +62,7 @@ export class Conexion {
                         const dbResponseSuccess : DbResponse = {
                             statusCode:1,
                             message:'Consulta exitosa',
-                            data: recordset[0],
+                            data: recordset,
                             information: 'RESPUESTA SATISFACTORIA AL EJECUTAR SP'
                         }
                         resolve(dbResponseSuccess)

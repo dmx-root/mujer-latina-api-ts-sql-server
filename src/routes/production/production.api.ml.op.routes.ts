@@ -15,7 +15,7 @@ export class ProductionOpRouter extends ProductionOpControllers{
         this.opRouter.get('/get/one/:id',       this.getOne);
         this.opRouter.get('/get/details/:id',   this.getDetails);
 
-        this.opRouter.get('/insert/details/:id',                this.insertListDetailOp);
+        this.opRouter.get('/insert/details',                    this.insertListDetailOp);
 
         this.opRouter.get('/get/filter/byProcesseState/:id',    this.getListFilterByProcesseState);
         this.opRouter.get('/get/filter/byReference/:id',        this.getListFilterByReference);

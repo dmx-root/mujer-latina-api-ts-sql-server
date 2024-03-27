@@ -44,9 +44,9 @@ export const getOpWebService : (op : string)=> Promise< ResponseInterface > = as
 
         parseString(opList.data, function (err, result) {
 
-            const ops = result['soap:Envelope']['soap:Body'][0]['EjecutarConsultaXMLResponse'][0]['EjecutarConsultaXMLResult'][0]['diffgr:diffgram'][0]['NewDataSet'][0]['Resultado']; 
+            const ops : detOpResponseWS[] = result['soap:Envelope']['soap:Body'][0]['EjecutarConsultaXMLResponse'][0]['EjecutarConsultaXMLResult'][0]['diffgr:diffgram'][0]['NewDataSet'][0]['Resultado']; 
             
-            ops.forEach((element:detOpResponseWS) => {
+            ops.forEach((element) => {
 
                 const detOp = {
                     op:element.OP[0].trim(),

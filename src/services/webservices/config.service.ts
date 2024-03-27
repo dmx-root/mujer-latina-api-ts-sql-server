@@ -43,7 +43,7 @@ export const opConfig : (op : string) => string = (op : string) => {
     </soap:Body>\n</soap:Envelope>`;
 }
 
-export const eanConfig : (reference: string) => string = (reference : string) => {
+export const eanConfig : ( reference : string, colorId : string, tallaId :string ) => string = ( reference : string, colorId : string, tallaId :string ) => {
     return `<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:tem="http://tempuri.org/">\n   
     <soap:Header/>\n   
     <soap:Body>\n      
@@ -59,8 +59,8 @@ export const eanConfig : (reference: string) => string = (reference : string) =>
         <Clave>${process.env.CLAVE_WS}</Clave>\n        
         <Parametros>\n        
         <referencia>${reference}</referencia>\n        
-        <extension1>-1</extension1>\n        
-        <extension2>-1</extension2>\n        
+        <extension1>${colorId}</extension1>\n        
+        <extension2>${tallaId}</extension2>\n        
         </Parametros>\n
         </Consulta>\n         
     ]]>\n         
