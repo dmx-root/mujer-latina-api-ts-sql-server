@@ -2,33 +2,32 @@ import { HttpErrorResponse }    from "../../../utilities/httpErrorResponse";
 import { dbParameters }         from "../../../interfaces/db/dbInterface";
 import { comparePassword }      from '../../../helpers/passwordCompare';
 import { ApiResponse }          from '../../../interfaces/api/response';
+import { userSign }             from '../../../helpers/userSign';
 import { Conexion }             from "../../../db/conection";
 import { Request, Response }    from "express";
-import * as yup                 from 'yup';
 import sql                      from 'mssql';
+import * as yup                 from 'yup';
 
 interface DbResponse {
-
-    statusCode: 1 | 0 | -1,
-    message?: string,
-    data?:any
-    information?:string,
-    err?:HttpErrorResponse
-
+    statusCode : 1 | 0 | -1,
+    message? : string,
+    data? : any
+    information? : string
+    err? : HttpErrorResponse
 }
 
 interface ApiDataResponse extends ApiResponse {
     data:any
 }
 
-export const login : (req:Request, res:Response) => Promise <any>= async (req:Request, res:Response) => {
+export const login : ( req:Request, res:Response ) => Promise <any> = async (req:Request, res:Response) => {
     const {
         documentoId,
         clave
     } = req.body;
 
     const schema = yup.object().shape({
-        documentoId:yup.string().required().min(5).max(20),
+        documentoId: yup.string().required().min(5).max(20),
         clave: yup.string().required().min(4).max(100),
     });
     
@@ -47,7 +46,7 @@ export const login : (req:Request, res:Response) => Promise <any>= async (req:Re
     try {
         const db = new Conexion();
 
-        const params : Array<dbParameters> =[
+        const params : Array <dbParameters> =[
             {
                 name: 'id_usuario',
                 type: sql.VarChar,
@@ -89,14 +88,12 @@ export const login : (req:Request, res:Response) => Promise <any>= async (req:Re
             }
             return res.status(500).json(apiResponse);
         }
-        // const token = await userSign({
-        //     userId:     response.data.usr_documento_id,
-        //     userName:   response.data.nombre,
-        //     roleId:     response.data.perfil_id,
-        //     roleName:   response.data.perfil_etiqueta
-        // });
-
-        // console.log(token)
+        const token = await userSign({
+            userId:     response.data[0].documento_id,
+            userName:   response.data[0].nombre,
+            roleId:     response.data[0].perfil_id,
+            roleName:   response.data[0].perfil_etiqueta
+        });
 
         const apiResponse : ApiDataResponse = {
             statusCode: 1,
@@ -104,7 +101,7 @@ export const login : (req:Request, res:Response) => Promise <any>= async (req:Re
             data: response.data
         }
 
-        return res.status(200).json(apiResponse);
+        return res.status(200).setHeader('Authorization-Token',token).json(apiResponse);
     } catch (error) {
         
     }
