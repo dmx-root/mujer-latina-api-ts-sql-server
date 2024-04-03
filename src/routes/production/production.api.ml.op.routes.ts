@@ -1,26 +1,33 @@
 import { Router }                       from 'express';
-import { ProductionOpControllers }     from '../../controllers/production/production.api.ml.op.controllers';
+import { insertListDetailOp }               from '../../controllers/production/op/production.controllers.op.postDetailsOp'
+import { getList }                          from '../../controllers/production/op/production.controllers.op.getList'
+import { getOne }                           from '../../controllers/production/op/production.controllers.op.getOne'
+import { getDetails }                       from '../../controllers/production/op/production.controllers.op.getDetail'
+import { getListFilterByProcesseState }     from '../../controllers/production/op/production.controllers.op.getListFilterByProcesseState'
+import { getListFilterByReference }         from '../../controllers/production/op/production.controllers.op.getListFilterByReference'
+import { getListFilterByType }              from '../../controllers/production/op/production.controllers.op.getListFilterByType';
+import { getListFilterByUser }              from '../../controllers/production/op/production.controllers.op.getListFilterByUser';
 
-export class ProductionOpRouter extends ProductionOpControllers{
+
+export class ProductionOpRouter {
     
     public opRouter=Router();
 
     constructor(){
-        super();
         this.inizialicer();
     }
 
     inizialicer(){
-        this.opRouter.get('/get/all/',          this.getList);
-        this.opRouter.get('/get/one/:id',       this.getOne);
-        this.opRouter.get('/get/details/:id',   this.getDetails);
+        this.opRouter.get('/list/',              getList);
+        this.opRouter.get('/list-details/:id',   getDetails);
+        this.opRouter.get('/element/:id',        getOne);
 
-        this.opRouter.get('/insert/details',                    this.insertListDetailOp);
+        this.opRouter.post('/element/',                     insertListDetailOp);
 
-        this.opRouter.get('/get/filter/byProcesseState/:id',    this.getListFilterByProcesseState);
-        this.opRouter.get('/get/filter/byReference/:id',        this.getListFilterByReference);
-        this.opRouter.get('/get/filter/byType/:id',             this.getListFilterByType);
-        this.opRouter.get('/get/filter/byUser/:id',             this.getListFilterByUser);
+        this.opRouter.get('/list-filter-by-state/:id',      getListFilterByProcesseState);
+        this.opRouter.get('/list-filter-by-reference/:id',  getListFilterByReference);
+        this.opRouter.get('/list-filter-by-type/:id',       getListFilterByType);
+        this.opRouter.get('/list-filter-by-user/:id',       getListFilterByUser);
 
     }
 }

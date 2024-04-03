@@ -1,27 +1,35 @@
 import { Router }                       from 'express';
-import { ProductionOcrControllers }     from '../../controllers/production/production.api.ml.ocr.controllers';
+import { getList }                      from '../../controllers/production/ocr/production.controllers.ocr.getList'
+import { getOne }                       from '../../controllers/production/ocr/production.controllers.ocr.getOne';
+import { getListFilterByOp }            from '../../controllers/production/ocr/production.controllers.ocr.getListFilterByOp';
+import { getListFilterByModulo }        from '../../controllers/production/ocr/production.controllers.ocr.getListFilterByModulo';
+import { getListFilterByCheckState }    from '../../controllers/production/ocr/production.controllers.ocr.getListFilterByCheckState';
+import { getListFilterByEvent }         from '../../controllers/production/ocr/production.controllers.ocr.getListFilterByEvent';
+import { getListFilterByCategory }      from '../../controllers/production/ocr/production.controllers.ocr.getListFilterByCategory';
+import { getListFilterByUser }          from '../../controllers/production/ocr/production.controllers.ocr.getListFilterByUser';
+import { insertOperation }              from '../../controllers/production/ocr/production.controllers.ocr.postOperation';
 
-export class ProductionOcrRouter extends ProductionOcrControllers {
+
+export class ProductionOcrRouter {
     
     public ocrRouter=Router();
 
     constructor(){
-        super();
         this.inizialicer();
     }
 
     inizialicer(){
-        this.ocrRouter.get('/list/',        this.getList);
-        this.ocrRouter.get('/element/:id',  this.getOne);
+        this.ocrRouter.get('/list/',        getList);
+        this.ocrRouter.get('/element/:id',  getOne);
         
-        this.ocrRouter.post('/element/',    this.insertOperation);
+        this.ocrRouter.post('/element/',    insertOperation);
 
-        this.ocrRouter.get('/list-filter-by-op-detail/',  this.getListFilterByOp);
-        this.ocrRouter.get('/list-filter-by-modulo/:id',  this.getListFilterByModulo);
-        this.ocrRouter.get('/list-filter-by-revise/:id',  this.getListFilterByCheckState);
-        this.ocrRouter.get('/list-filter-by-event/:id',   this.getListFilterByEvent); //revision 
-        this.ocrRouter.get('/list-filter-by-category/:id',this.getListFilterByCategory);
-        this.ocrRouter.get('/list-filter-by-user/:id',    this.getListFilterByUser);
+        this.ocrRouter.get('/list-filter-by-category/:id',getListFilterByCategory);
+        this.ocrRouter.get('/list-filter-by-modulo/:id',  getListFilterByModulo);
+        this.ocrRouter.get('/list-filter-by-revise/:id',  getListFilterByCheckState);
+        this.ocrRouter.get('/list-filter-by-event/:id',   getListFilterByEvent); // revisar controladpr
+        this.ocrRouter.get('/list-filter-by-op-detail/',  getListFilterByOp);
+        this.ocrRouter.get('/list-filter-by-user/:id',    getListFilterByUser);
         
         // this.ocrRouter.get('/get/filter/byDate/',);
     }

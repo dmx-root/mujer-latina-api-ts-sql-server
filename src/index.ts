@@ -11,8 +11,8 @@ export class Server {
     private port: String;
 
     constructor(){
-        this.app=express();
-        this.port=CONFIGURE.SERVER_PORT||'8080';
+        this.app = express();
+        this.port = CONFIGURE.SERVER_PORT || '8080';
         this.config(this.app);
         this.listen();
 
@@ -22,9 +22,9 @@ export class Server {
 
     private config(app:Application):void{
 
-        const corsConfig:CorsOptions={
-            origin:"http://localhost:3000",
-            credentials:true
+        const corsConfig : CorsOptions = {
+            origin: "http://localhost:3000",
+            credentials: true
         };
 
         app.use(cors(corsConfig));

@@ -1,17 +1,17 @@
 import {Router} from 'express';
-import { AuthLocalControllers } from '../../controllers/auth/auth.api.ml.local.controllers'
+import { login } from '../../controllers/auth/local/auth.controllers.local.login';
+import { signIn } from '../../controllers/auth/local/auth.controllers.local.signIn';
 
-export class AuthLocalRouter extends AuthLocalControllers {
+export class AuthLocalRouter {
 
     public authLocalRouter=Router();
 
     constructor(){
-        super();
         this.inizialicer();
     }
 
     inizialicer(){
-        this.authLocalRouter.get('/login/',     this.login);
-        this.authLocalRouter.get('/sign-in/',   this.signIn);
+        this.authLocalRouter.get('/login/',     login);
+        this.authLocalRouter.post('/signin/',    signIn);
     }
 }

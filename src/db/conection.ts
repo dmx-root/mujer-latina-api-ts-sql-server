@@ -9,7 +9,7 @@ interface DbResponse {
     message?: string,
     data?: any
     information?: string,
-    err?: HttpErrorResponse
+    err?: HttpErrorResponse,
 
 }
 
@@ -21,8 +21,8 @@ export class Conexion {
         this.config = dbConfig;
     };
 
-    async execute(procedure : string, parameters : Array<dbParameters> = []) : Promise<any>{
-        return new Promise(async (resolve : (cont : DbResponse) => void, reject : (cont : DbResponse) => void)=>{
+    async execute(procedure : string, parameters : Array <dbParameters> = []) : Promise<any>{
+        return new Promise( async (resolve : (cont : DbResponse) => void, reject : (cont : DbResponse) => void) => {
 
             let pool! : sql.ConnectionPool
             try {
@@ -74,7 +74,7 @@ export class Conexion {
                             information: 'ERROR CONTROLADOR AL EJECUTAR SP',
                             err: new HttpErrorResponse(recordset[0].MENSAJE||'NO SE PUDO EJECUTAR LA CONSULTA, ERROR INTERNO DE SP')
                         }
-                        reject(dbResponseFaileture)
+                        resolve(dbResponseFaileture)
                     default:
                         const dbResponseDefault : DbResponse = {
                             statusCode:-1,

@@ -1,20 +1,19 @@
-import { Router }       from 'express';
-import { ProductionModuloControllers  } from '../../controllers/production/production.api.ml.modulo.controllers';
+import { Router }               from 'express';
+import { getList }              from '../../controllers/production/modulo/production.controllers.modulo.getList';
+import { getOne }               from '../../controllers/production/modulo/production.controllers.modulo.getOne';
+import { getListFilterByState } from '../../controllers/production/modulo/production.controllers.modulo.getListFilterByState';
 
-export class ProductionModuloRouter extends ProductionModuloControllers{
+export class ProductionModuloRouter {
     
     public moduloRouter=Router();
 
     constructor(){
-        super();
         this.inizialicer();
     }
 
     inizialicer(){
-        this.moduloRouter.get('/get/all/',    this.getList);
-        this.moduloRouter.get('/get/one/:id', this.getOne);
-
-        this.moduloRouter.get('/get/filter/byState/:id',   this.getListFilterByState);
-
+        this.moduloRouter.get('/list/',         getList);
+        this.moduloRouter.get('/element/:id',   getOne);
+        this.moduloRouter.get('/list-filter-by-state/:id',   getListFilterByState);
     }
 }
