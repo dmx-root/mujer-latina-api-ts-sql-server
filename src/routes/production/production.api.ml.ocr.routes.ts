@@ -8,7 +8,7 @@ import { getListFilterByEvent }         from '../../controllers/production/ocr/p
 import { getListFilterByCategory }      from '../../controllers/production/ocr/production.controllers.ocr.getListFilterByCategory';
 import { getListFilterByUser }          from '../../controllers/production/ocr/production.controllers.ocr.getListFilterByUser';
 import { insertOperation }              from '../../controllers/production/ocr/production.controllers.ocr.postOperation';
-
+import { checkElement }                 from '../../controllers/production/ocr/production.controllers.ocr.putCheckElement';
 
 export class ProductionOcrRouter {
     
@@ -22,8 +22,10 @@ export class ProductionOcrRouter {
         this.ocrRouter.get('/list/',        getList);
         this.ocrRouter.get('/element/:id',  getOne);
         
+        this.ocrRouter.put('/element/',     checkElement);
+        
         this.ocrRouter.post('/element/',    insertOperation);
-
+        
         this.ocrRouter.get('/list-filter-by-category/:id',getListFilterByCategory);
         this.ocrRouter.get('/list-filter-by-modulo/:id',  getListFilterByModulo);
         this.ocrRouter.get('/list-filter-by-revise/:id',  getListFilterByCheckState);

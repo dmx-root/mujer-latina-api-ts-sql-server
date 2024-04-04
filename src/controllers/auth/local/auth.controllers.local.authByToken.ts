@@ -22,15 +22,11 @@ interface ApiResponse {
     data?:any
 }
 
-export const login : ( req:Request, res:Response ) => Promise <any> = async (req:Request, res:Response) => {
-    const {
-        documentoId,
-        clave
-    } = req.query;
+export const authByToken : ( req:Request, res:Response ) => Promise <any> = async (req:Request, res:Response) => {
+    const { id } = req.params;
 
     const schema = yup.object().shape({
-        documentoId: yup.string().required().min(5).max(20),
-        clave: yup.string().required().min(4).max(100),
+        documentoId: yup.string().min(5).max(20)
     });
     
     try {
@@ -52,11 +48,11 @@ export const login : ( req:Request, res:Response ) => Promise <any> = async (req
             {
                 name: 'id_usuario',
                 type: sql.VarChar,
-                value: documentoId
+                value: id
             }
         ];
 
-        const response : DbResponse = await db.execute('sp_gestion_ml_db_autenticacion_solicitud_usuario',params);
+        const response : DbResponse = await db.execute('sp_gestion_ml_db_administracion_solicitud_usuario',params);
 
         if( response.statusCode === 0){
             const apiResponse : ApiResponse = {
@@ -73,44 +69,13 @@ export const login : ( req:Request, res:Response ) => Promise <any> = async (req
             }
             return res.status(404).json(apiResponse);
         }
-        if( typeof(clave) !== 'string'){
-            const apiResponse : ApiResponse = {
-                apiCode: 0,
-                apiMessage: response.message || 'No se obtuvo mensajes'
-            }
-            return res.status(404).json(apiResponse);
-        }
-
-        const compare = await comparePassword(response.data[0].contrasena,clave);
-        if(compare.statusCode === 0){
-            const apiResponse : ApiResponse = {
-                apiCode: 0,
-                apiMessage: 'Contraseña incorrecta'
-            }
-            return res.status(404).json(apiResponse);
-        }
-
-        if(compare.statusCode === -1){
-            const apiResponse : ApiResponse = {
-                apiCode: -1,
-                apiMessage: compare.statusMessage
-            }
-            return res.status(500).json(apiResponse);
-        }
-        const token = await userSign({
-            userId:     response.data[0].documento_id,
-            userName:   response.data[0].nombre,
-            roleId:     response.data[0].perfil_id,
-            roleName:   response.data[0].perfil_etiqueta
-        });
 
         const apiResponse : ApiResponse = {
             apiCode: 1,
             apiMessage: 'Consulta exitosa',
             data: response.data
         }
-
-        return res.status(200).setHeader('Authorization-Token',token).json(apiResponse);
+        return res.status(200).json(apiResponse);
     } catch (error) {
         
     }
