@@ -98,10 +98,13 @@ export const login : ( req:Request, res:Response ) => Promise <any> = async (req
             return res.status(500).json(apiResponse);
         }
         const token = await userSign({
-            userId:     response.data[0].documento_id,
-            userName:   response.data[0].nombre,
-            roleId:     response.data[0].perfil_id,
-            roleName:   response.data[0].perfil_etiqueta
+            userId:             response.data[0].documento_id,
+            userName:           response.data[0].nombre,
+            userDescription:    response.data[0].descripcion,
+            roleId:             response.data[0].perfil_id,
+            roleName:           response.data[0].perfil_etiqueta,
+            documentTypeId:     response.data[0].tipo_documento_id,
+            docuementTypeName:  response.data[0].tipo_documento_etiqueta
         });
 
         const apiResponse : ApiResponse = {

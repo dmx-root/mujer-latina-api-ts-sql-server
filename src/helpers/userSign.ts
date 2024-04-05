@@ -7,6 +7,9 @@ interface PayloadInterface {
     userName:string
     roleId:number,
     roleName:string,
+    userDescription: string,
+    documentTypeId: number,
+    docuementTypeName: string
 }
 
 export const userSign : ( payLoad : PayloadInterface ) => Promise<string> = async ( payLoad : PayloadInterface ) => {

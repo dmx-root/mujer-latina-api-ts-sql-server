@@ -119,6 +119,8 @@ export const routesAutentication : ( rolesList : number[] ) => ( req : Request, 
                 })
             }
 
+            // console.log(currentUser)
+
             const validateCurrentUser = await verifyUser(currentUser.data.userId);
             
             if(validateCurrentUser.statusCode!==1){
@@ -135,7 +137,7 @@ export const routesAutentication : ( rolesList : number[] ) => ( req : Request, 
             if( validateRolesResponse.statusCode !==1 ){
                 const apiResponse : ApiResponse = {
                     statusCode : 0,
-                    message : validateCurrentUser.statusMessage 
+                    message : validateRolesResponse.statusMessage 
 
                 }
                 return res.status(404).json(apiResponse)

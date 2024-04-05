@@ -24,8 +24,8 @@ export const decodeToken : ( token : string ) => HelperResponse = ( token : stri
         
     } catch (error) {
         const response : HelperResponse = {
-            statusCode: 1,
-            statusMessage: "Decodificación exitosa"
+            statusCode: -1,
+            statusMessage: "Error en la decodificación"
         }
         return response;
     }

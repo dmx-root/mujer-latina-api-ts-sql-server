@@ -15,6 +15,6 @@ export class AuthLocalRouter {
     inizialicer(){
         this.authLocalRouter.get('/login/',             login);
         this.authLocalRouter.post('/signin/',           signIn);
-        this.authLocalRouter.get('/auth-by-token/:id', [routesAutentication([1,2,3,4,5])], authByToken);
+        this.authLocalRouter.get('/auth-by-token/', [routesAutentication([1,2,3,4,5])], authByToken);
     }
 }
