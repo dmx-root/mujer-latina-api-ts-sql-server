@@ -21,17 +21,16 @@ export const authByToken : ( req:Request, res:Response ) => Promise <any> = asyn
         const token = req.header("Authenticate-Token");
 
         if(!token) return res.status(403).json({
-            statusCode : 0,
-            message : "Token no proporcionado"
+            apiCode : 0,
+            apiMessage : "Token no proporcionado"
         })
 
         const currentUser = decodeToken(token);
 
-
         if(!currentUser.data || typeof(currentUser.data)==='string'){
             return res.status(401).json({
-                statusCode : -1,
-                message : "No se pudo obtener la sesión"
+                apiCode : -1,
+                apiMessage : "No se pudo obtener la sesión"
             })
         }
 

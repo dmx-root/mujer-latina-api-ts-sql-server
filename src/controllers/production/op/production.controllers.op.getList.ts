@@ -1,7 +1,6 @@
 import { Request, Response }    from 'express';
 import sql                      from 'mssql';
 import { Conexion }             from '../../../db/conection';
-import { ApiResponse }          from '../../../interfaces/api/response';
 import { HttpErrorResponse }    from '../../../utilities/httpErrorResponse';
 
 interface ApiDataResponse extends ApiResponse {
@@ -17,6 +16,12 @@ interface DbResponse {
 
 }
 
+interface ApiResponse {
+    apiCode: -1 | 0 | 1,
+    apiMessage: string,
+    data?:any
+}
+
 export const getList : (req:Request,res:Response) => Promise<any> = async (req:Request,res:Response) => {
 
     try {
@@ -25,31 +30,31 @@ export const getList : (req:Request,res:Response) => Promise<any> = async (req:R
         
         if(response.statusCode === -1){
             const apiResponse: ApiResponse ={
-                statusCode:-1,
-                message:response.message || 'No se obtuvo los elementos'
+                apiCode:-1,
+                apiMessage:response.message || 'No se obtuvo los elementos'
             }
             return res.status(500).json(apiResponse)
         }
 
         if(response.statusCode===0){
             const apiResponse: ApiResponse ={
-                statusCode:0,
-                message:response.message || 'No se obtuvo los elementos'
+                apiCode:0,
+                apiMessage:response.message || 'No se obtuvo los elementos'
             }
             return res.status(404).json(apiResponse)
         }
 
         const apiResponse: ApiDataResponse = {
-            statusCode:1,
-            message: 'Consulta exitosa',
+            apiCode:1,
+            apiMessage: 'Consulta exitosa',
             data:response.data
         }
         return res.status(200).json(apiResponse);
         
     } catch (error) {
         const apiResponse: ApiResponse = {
-            statusCode:-1,
-            message:'Error interno en el servidor'
+            apiCode:-1,
+            apiMessage:'Error interno en el servidor'
         }
         return res.status(500).json(apiResponse)
     }

@@ -1,6 +1,5 @@
 import { HttpErrorResponse }                from '../utilities/httpErrorResponse';
 import { dbParameters }                     from '../interfaces/db/dbInterface';
-import { ApiResponse }                      from '../interfaces/api/response';
 import { decodeToken }                      from '../helpers/userVerify';
 import {Conexion}                           from '../db/conection';
 import { NextFunction, Response, Request }  from 'express';
@@ -20,6 +19,13 @@ interface DbResponse {
     information? : string
     err? : HttpErrorResponse
 }
+
+interface ApiResponse {
+    apiCode: -1 | 0 | 1,
+    apiMessage: string,
+    data?:any
+}
+
 
 export const verifyUser : (userId : string ) => Promise <HelperResponse> = async  (userId: string) => {
 
@@ -106,16 +112,16 @@ export const routesAutentication : ( rolesList : number[] ) => ( req : Request, 
         const token = req.header("Authenticate-Token");
 
         if(!token) return res.status(403).json({
-            statusCode : 0,
-            message : "Token no proporcionado"
+            apiCode : 0,
+            apiMessage : "Token no proporcionado"
         })
 
         try {
             const currentUser = decodeToken(token);
             if(!currentUser.data || typeof(currentUser.data)==='string'){
                 return res.status(401).json({
-                    statusCode : -1,
-                    message : "No se pudo obtener la sesión"
+                    apiCode : -1,
+                    apiMessage : "No se pudo obtener la sesión"
                 })
             }
 
@@ -125,8 +131,8 @@ export const routesAutentication : ( rolesList : number[] ) => ( req : Request, 
             
             if(validateCurrentUser.statusCode!==1){
                 const apiResponse : ApiResponse = {
-                    statusCode : 0,
-                    message : validateCurrentUser.statusMessage 
+                    apiCode : 0,
+                    apiMessage : validateCurrentUser.statusMessage 
 
                 }
                 return res.status(404).json(apiResponse)
@@ -136,8 +142,8 @@ export const routesAutentication : ( rolesList : number[] ) => ( req : Request, 
             
             if( validateRolesResponse.statusCode !==1 ){
                 const apiResponse : ApiResponse = {
-                    statusCode : 0,
-                    message : validateRolesResponse.statusMessage 
+                    apiCode : 0,
+                    apiMessage : validateRolesResponse.statusMessage 
 
                 }
                 return res.status(404).json(apiResponse)
@@ -148,8 +154,8 @@ export const routesAutentication : ( rolesList : number[] ) => ( req : Request, 
 
                 if(!cond){
                     const apiResponse : ApiResponse = {
-                        statusCode : -1,
-                        message : "Error interno de servidor, los roles no se asignaron correctamente"
+                        apiCode : -1,
+                        apiMessage : "Error interno de servidor, los roles no se asignaron correctamente"
                     }
     
                     return res.status(500).json(apiResponse);
@@ -160,8 +166,8 @@ export const routesAutentication : ( rolesList : number[] ) => ( req : Request, 
 
             if(!cond){
                 const apiResponse : ApiResponse = {
-                    statusCode : 0,
-                    message : "Usuario no autorizado para acceder a este recurso"
+                    apiCode : 0,
+                    apiMessage : "Usuario no autorizado para acceder a este recurso"
                 }
     
                 return res.status(403).json(apiResponse);
@@ -170,8 +176,8 @@ export const routesAutentication : ( rolesList : number[] ) => ( req : Request, 
             next();
         } catch (error) {
             const apiResponse :ApiResponse = {
-                statusCode: -1,
-                message: "Error interno de servidor, no se pudo validar la ruta solicitada"
+                apiCode: -1,
+                apiMessage: "Error interno de servidor, no se pudo validar la ruta solicitada"
             }
             return res.status(500).json(apiResponse)
             
