@@ -22,7 +22,7 @@ interface ApiResponse {
     data?:any
 }
 
-export const login : ( req:Request, res:Response ) => Promise <any> = async (req:Request, res:Response) => {
+export const login : ( req : Request, res : Response ) => Promise <any> = async (req:Request, res:Response) => {
     const {
         documentoId,
         clave

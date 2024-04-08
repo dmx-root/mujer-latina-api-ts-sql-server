@@ -1,14 +1,14 @@
-import { Router } from "express";
-import { SesionMobileController } from '../../controllers/sesion/sesion.api.ml.mobile.controllers'
+import { Router }           from "express";
+import { getOperations }    from '../../controllers/sesion/mobile/sesion.controllers.mobile.getOperations';
+import { getMenu}           from '../../controllers/sesion/mobile/sesion.controllers.mobile.getListMenu';
 
-export class SesionMobileRouter extends SesionMobileController{
+export class SesionMobileRouter{
     public mobileRouter = Router();
     constructor(){
-        super()
         this.inizialicer();
     }
     inizialicer(){
-        this.mobileRouter.get('/get/operation/:id',this.getOperations);
-        this.mobileRouter.get('/get/menu/:id',     this.getMenu);
+        this.mobileRouter.get('/operation/:id', getOperations);
+        this.mobileRouter.get('/menu/:id',      getMenu);
     }
 }
