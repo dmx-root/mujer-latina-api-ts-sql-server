@@ -24,9 +24,9 @@ export class ProductionOpRouter {
 
         this.opRouter.post('/element/',                     insertListDetailOp);
 
-        this.opRouter.get('/list-filter-by-state/:id',      getListFilterByProcesseState);
+        this.opRouter.get('/list-filter-by-state/',         getListFilterByProcesseState);
         this.opRouter.get('/list-filter-by-reference/:id',  getListFilterByReference);
-        this.opRouter.get('/list-filter-by-type/:id',       getListFilterByType);
+        this.opRouter.get('/list-filter-by-type/',          getListFilterByType);
         this.opRouter.get('/list-filter-by-user/:id',       getListFilterByUser);
 
     }

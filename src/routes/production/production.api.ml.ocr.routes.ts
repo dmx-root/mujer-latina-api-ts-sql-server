@@ -9,6 +9,7 @@ import { getListFilterByCategory }      from '../../controllers/production/ocr/p
 import { getListFilterByUser }          from '../../controllers/production/ocr/production.controllers.ocr.getListFilterByUser';
 import { insertOperation }              from '../../controllers/production/ocr/production.controllers.ocr.postOperation';
 import { checkElement }                 from '../../controllers/production/ocr/production.controllers.ocr.putCheckElement';
+import { getListFilterByOpType }        from '../../controllers/production/ocr/production.controllers.ocr.getListFilterByOpType'
 
 export class ProductionOcrRouter {
     
@@ -26,9 +27,10 @@ export class ProductionOcrRouter {
         
         this.ocrRouter.post('/element/',    insertOperation);
         
-        this.ocrRouter.get('/list-filter-by-category/:id',getListFilterByCategory);
+        this.ocrRouter.get('/list-filter-by-category/',   getListFilterByCategory);
         this.ocrRouter.get('/list-filter-by-modulo/:id',  getListFilterByModulo);
-        this.ocrRouter.get('/list-filter-by-revise/:id',  getListFilterByCheckState);
+        this.ocrRouter.get('/list-filter-by-revise/',     getListFilterByCheckState);
+        this.ocrRouter.get('/list-filter-by-op-type/',    getListFilterByOpType);
         this.ocrRouter.get('/list-filter-by-event/:id',   getListFilterByEvent); // revisar controladpr
         this.ocrRouter.get('/list-filter-by-op-detail/',  getListFilterByOp);
         this.ocrRouter.get('/list-filter-by-user/:id',    getListFilterByUser);

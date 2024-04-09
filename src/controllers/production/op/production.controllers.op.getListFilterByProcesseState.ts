@@ -1,36 +1,58 @@
 import { Request, Response }    from 'express';
 import sql                      from 'mssql';
 import { Conexion }             from '../../../db/conection';
-import { ApiResponse }          from '../../../interfaces/api/response';
 import { dbParameters }         from '../../../interfaces/db/dbInterface';
 import {HttpErrorResponse}      from '../../../utilities/httpErrorResponse';
-
-
-interface ApiDataResponse extends ApiResponse {
-    data:Array<any>
-} 
+import * as yup                 from 'yup'
 
 interface DbResponse {
-
     statusCode: 1 | 0 | -1,
     message?: string,
     data?: any
     information?: string,
     err?: HttpErrorResponse,
+}
 
+interface ApiResponse {
+    apiCode: -1 | 0 | 1,
+    apiMessage: string,
+    data?:any
 }
 
 export const getListFilterByProcesseState : (req:Request,res:Response) => Promise<any>= async (req:Request,res:Response) => {
 
-    const { id } = req.params;
+    const { state, user } = req.query;
 
-    const params:Array<dbParameters> =[
+    const schema = yup.object().shape({
+        state:yup.string().required(),
+        user:yup.string().max(20).min(5),
+    });
+
+    const params : dbParameters[] = [
         {
             name:'id_estado',
             type:sql.Int,
-            value:id
+            value:state
+        },
+        {
+            name: 'id_usuario',
+            type: sql.VarChar,
+            value: user || null
         }
-    ];
+    ]
+
+    try {
+        
+        await schema.validate(req.query)
+
+    } catch (error) {
+        const errors:any=error
+        const apiResponse: ApiResponse = {
+            apiCode:-1,
+            apiMessage: errors.errors[0] 
+        }
+        return res.status(500).json(apiResponse);
+    }
     try {
         const db = new Conexion();
 
@@ -38,8 +60,8 @@ export const getListFilterByProcesseState : (req:Request,res:Response) => Promis
 
         if(response.statusCode === -1){
             const apiResponse: ApiResponse= {
-                statusCode: -1,
-                message: response.message || 'No se obtuvo mensajes',
+                apiCode: -1,
+                apiMessage: response.message || 'No se obtuvo mensajes',
             }
 
             return res.status(500).json(apiResponse);
@@ -47,16 +69,16 @@ export const getListFilterByProcesseState : (req:Request,res:Response) => Promis
 
         if(response.statusCode === 0){
             const apiResponse: ApiResponse= {
-                statusCode: 0,
-                message: response.message || 'No se obtuvo mensajes',
+                apiCode: 0,
+                apiMessage: response.message || 'No se obtuvo mensajes',
             }
 
             return res.status(404).json(apiResponse);
         }
 
-        const apiResponse: ApiDataResponse = {
-            statusCode: 1,
-            message: 'Consulta exitosa',
+        const apiResponse: ApiResponse = {
+            apiCode: 1,
+            apiMessage: 'Consulta exitosa',
             data:response.data
         }
 
@@ -64,11 +86,10 @@ export const getListFilterByProcesseState : (req:Request,res:Response) => Promis
         
     } catch (error) {
         const apiResponse: ApiResponse= {
-            statusCode: -1,
-            message: "Error interno de servidor",
+            apiCode: -1,
+            apiMessage: "Error interno de servidor",
         }
 
         return res.status(500).json(apiResponse);
-        console.log(error)
     }
 }
