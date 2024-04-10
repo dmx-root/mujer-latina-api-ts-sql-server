@@ -27,8 +27,6 @@ export const getListFilterByType : ( req:Request, res:Response ) => Promise<any>
         user:yup.string().max(20).min(5),
     });
 
-    console.log(req.query)
-
     const params : Array<dbParameters> = [
         {
             name:'tipo_op',

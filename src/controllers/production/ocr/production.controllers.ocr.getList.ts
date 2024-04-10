@@ -35,7 +35,7 @@ export const getList:(req:Request,res:Response) => Promise<any> = async (req:Req
             }
             return res.status(404).json(apiResponse)
         }
-        console.log(response.data.length)
+        
         const apiResponse: ApiDataResponse = {
             apiCode:1,
             apiMessage: 'Consulta exitosa',
