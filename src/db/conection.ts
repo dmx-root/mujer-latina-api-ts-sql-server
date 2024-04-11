@@ -48,7 +48,7 @@ export class Conexion {
                 })
 
                 const { returnValue, recordset } = await query.execute(procedure);
-
+                
                 switch(returnValue){
                     case 0:
                         const dbResponseEmpty : DbResponse = {

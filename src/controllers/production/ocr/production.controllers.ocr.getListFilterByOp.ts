@@ -72,7 +72,7 @@ export const getListFilterByOp : ( req:Request,res:Response ) => Promise <any> =
     try {
 
         const response : DbResponse = await db.execute('sp_gestion_ml_db_produccion_solicitud_ocr_lista_filtrada_op_detalle',params);            
-        
+
         if(response.statusCode === -1){
             const apiResponse : ApiResponse = {
                 apiCode:0,
