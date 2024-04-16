@@ -2,7 +2,7 @@ import {Request, Response } from 'express';
 import sql                  from 'mssql';
 import * as yup             from 'yup';
 import { Conexion }         from '../../../db/conection';
-import { ApiResponse }      from '../../../interfaces/api/response';
+// import { ApiResponse }      from '../../../interfaces/api/response';
 import { dbParameters }     from '../../../interfaces/db/dbInterface';
 import { HttpErrorResponse } from '../../../utilities/httpErrorResponse';
 
@@ -15,6 +15,13 @@ interface DbResponse {
     err?: HttpErrorResponse,
 
 }
+
+interface ApiResponse {
+    apiCode: -1 | 0 | 1,
+    apiMessage: string,
+    data?:any
+}
+
 
 export const insertOperation: ( req:Request,res:Response )=>Promise<any> = async ( req:Request,res:Response ) => {
     const {
@@ -29,12 +36,14 @@ export const insertOperation: ( req:Request,res:Response )=>Promise<any> = async
             anormalidad
         } = req.body;
 
+    // console.log(req.body)
+
     const operationSchema = yup.object().shape({
         op:yup.string().required().max(500).min(5),
         color:yup.string().required().max(5).min(3),
-        talla:yup.string().required().max(5).min(1),
-        inicio:yup.string().required().max(10).min(5),
-        finalizacion:yup.string().required().max(10).min(5),
+        talla:yup.string().required().max(10).min(1),
+        inicio:yup.string().required().max(20).min(5),
+        finalizacion:yup.string().required().max(20).min(5),
         operarioId:yup.string().required().max(20).min(5),
         modulo:yup.number().required(),
         unidades:yup.number().required()
@@ -53,8 +62,8 @@ export const insertOperation: ( req:Request,res:Response )=>Promise<any> = async
             value: color
         },
         {
-            name: 'id_talla',
-            type: sql.Int,
+            name: 'talla',
+            type: sql.VarChar,
             value: talla
         },
         {
@@ -103,8 +112,8 @@ export const insertOperation: ( req:Request,res:Response )=>Promise<any> = async
     } catch (error) {
         const errors:any=error
         const apiResponse: ApiResponse = {
-            statusCode:-1,
-            message: errors.errors[0] 
+            apiCode:-1,
+            apiMessage: errors.errors[0] 
         }
         return res.status(500).json(apiResponse);
     }
@@ -115,31 +124,31 @@ export const insertOperation: ( req:Request,res:Response )=>Promise<any> = async
         
         if(response.statusCode === -1){
             const apiResponse : ApiResponse = {
-                statusCode:-1,
-                message: response.message || 'No se obtuvo mensajes'
+                apiCode:-1,
+                apiMessage: response.message || 'No se obtuvo mensajes'
             }
             return res.status(500).json(apiResponse);
         }
 
         if(response.statusCode === 0){
             const apiResponse : ApiResponse = {
-                statusCode:0,
-                message: response.message || 'No se obtuvo mensajes'
+                apiCode:0,
+                apiMessage: response.message || 'No se obtuvo mensajes'
             }
             return res.status(404).json(apiResponse);
         }
 
         const apiResponse : ApiResponse = {
-            statusCode:1,
-            message: 'Consulta exitosa'
+            apiCode:1,
+            apiMessage: 'Consulta exitosa'
         }
         return res.status(200).json(apiResponse);
 
     } catch (error) {
         console.log(error);
         const apiResponse : ApiResponse = {
-            statusCode:-1,
-            message: 'Error interno de servidor'
+            apiCode:-1,
+            apiMessage: 'Error interno de servidor'
         }
         return res.status(500).json(apiResponse);
     }
