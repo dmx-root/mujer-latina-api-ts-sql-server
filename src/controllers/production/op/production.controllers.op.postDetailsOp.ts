@@ -1,7 +1,6 @@
 import { Request, Response }    from 'express';
 import sql                      from 'mssql';
 import { Conexion }             from '../../../db/conection';
-import { ApiResponse }          from '../../../interfaces/api/response';
 import { dbParameters }         from '../../../interfaces/db/dbInterface';
 import { HttpErrorResponse }    from '../../../utilities/httpErrorResponse';
 import { getOpWebService }      from '../../../services/webservices/opQuery.service';
@@ -45,10 +44,16 @@ interface DataInsertionInterface extends DetailInterface {
     ean:string,
     usuario:string
 }
+interface ApiResponse {
+    apiCode: -1 | 0 | 1,
+    apiMessage: string,
+    data?:any
+}
+
 
 export const insertListDetailOp : (req : Request, res : Response)=> Promise<any> = async (req : Request, res : Response) => {
 
-    const { op, usuario } = req.body;
+    const { op, operarioId } = req.body;
     // console.log(op)
     try {
         const params : dbParameters[] = [
@@ -65,8 +70,8 @@ export const insertListDetailOp : (req : Request, res : Response)=> Promise<any>
         
         if(response.statusCode===1){
             const apiResponse : ApiDataResponse = {
-                statusCode: 1,
-                message: 'Consulta exitosa',
+                apiCode: 1,
+                apiMessage: 'Consulta exitosa',
                 data: response.data
             }
             return res.status(200).json(apiResponse);
@@ -74,8 +79,8 @@ export const insertListDetailOp : (req : Request, res : Response)=> Promise<any>
 
         if(response.statusCode===-1){
             const apiResponse : ApiResponse = {
-                statusCode: -1,
-                message: response.message||'No se obtuvo mensajes'
+                apiCode: -1,
+                apiMessage: response.message||'No se obtuvo mensajes'
             }
             return res.status(500).json(apiResponse);
         }
@@ -84,8 +89,8 @@ export const insertListDetailOp : (req : Request, res : Response)=> Promise<any>
 
         if(ws.statusCode === 0){
             const apiResponse : ApiResponse = {
-                statusCode: 0,
-                message: ws.statusMessage
+                apiCode: 0,
+                apiMessage: ws.statusMessage
             }
             return res.status(404).json(apiResponse);
         }
@@ -96,8 +101,8 @@ export const insertListDetailOp : (req : Request, res : Response)=> Promise<any>
         
         if(ean.statusCode===0){
             const apiResponse : ApiResponse = {
-                statusCode: 0,
-                message: ean.statusMessage
+                apiCode: 0,
+                apiMessage: ean.statusMessage
             }
             return res.status(404).json(apiResponse);
         }
@@ -120,7 +125,7 @@ export const insertListDetailOp : (req : Request, res : Response)=> Promise<any>
                     pendiente:      element.pendiente,
                     planeada:       element.planeada,
                     ean:            filterEan[0].ean,
-                    usuario:        usuario
+                    usuario:        operarioId
                 };
                 dataInsertionList.push(dataInsertionElement)
             }
@@ -128,13 +133,13 @@ export const insertListDetailOp : (req : Request, res : Response)=> Promise<any>
 
         if(dataInsertionList.length!==details.length){
             const apiResponse : ApiResponse = {
-                statusCode: 0,
-                message: 'No se pudo obtener los códigos de barras solicitados'
+                apiCode: 0,
+                apiMessage: 'No se pudo obtener los códigos de barras solicitados'
             }
             return res.status(404).json(apiResponse);
         }
 
-        console.log(dataInsertionList)
+        // console.log(dataInsertionList)
 
         const queve=new Queue();
         
@@ -204,8 +209,8 @@ export const insertListDetailOp : (req : Request, res : Response)=> Promise<any>
                 
                 if(response.statusCode!==1){
                     const apiResponse : ApiResponse = {
-                        statusCode:0,
-                        message: response.message || 'No se obtuvieron mensajes'
+                        apiCode:0,
+                        apiMessage: response.message || 'No se obtuvieron mensajes'
                     }
                     return res.status(400).json(apiResponse)
                 }
@@ -228,15 +233,15 @@ export const insertListDetailOp : (req : Request, res : Response)=> Promise<any>
 
             if(response.statusCode!==1){
                 const apiResponse : ApiResponse = {
-                    statusCode:1,
-                    message: response.message || 'No se obtuvieron mensajes'
+                    apiCode:1,
+                    apiMessage: response.message || 'No se obtuvieron mensajes'
                 }
                 return res.status(400).json(apiResponse)
             }
 
             const apiResponse : ApiDataResponse = {
-                statusCode:1,
-                message: response.message || 'No se obtuvieron mensajes',
+                apiCode:1,
+                apiMessage: response.message || 'No se obtuvieron mensajes',
                 data: response.data
             }
 
@@ -256,8 +261,8 @@ export const insertListDetailOp : (req : Request, res : Response)=> Promise<any>
     } catch (error) {
         console.log(error)
         const apiResponse : ApiResponse = {
-            statusCode : -1,
-            message: 'Error interno de servidor'
+            apiCode : -1,
+            apiMessage: 'Error interno de servidor'
         }
 
         return res.status(500).json(apiResponse);

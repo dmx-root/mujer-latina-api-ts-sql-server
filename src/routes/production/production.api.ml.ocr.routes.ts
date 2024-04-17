@@ -10,6 +10,7 @@ import { getListFilterByUser }          from '../../controllers/production/ocr/p
 import { insertOperation }              from '../../controllers/production/ocr/production.controllers.ocr.postOperation';
 import { checkElement }                 from '../../controllers/production/ocr/production.controllers.ocr.putCheckElement';
 import { getListFilterByOpType }        from '../../controllers/production/ocr/production.controllers.ocr.getListFilterByOpType'
+import { insertSecods }                 from '../../controllers/production/ocr/production.controllers.ocr.postSeconds';
 
 export class ProductionOcrRouter {
     
@@ -26,6 +27,7 @@ export class ProductionOcrRouter {
         this.ocrRouter.put('/element/',     checkElement);
         
         this.ocrRouter.post('/element/',    insertOperation);
+        this.ocrRouter.post('/segundas/',   insertSecods);
         
         this.ocrRouter.get('/list-filter-by-category/',   getListFilterByCategory);
         this.ocrRouter.get('/list-filter-by-modulo/:id',  getListFilterByModulo);
