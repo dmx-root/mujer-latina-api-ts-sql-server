@@ -35,6 +35,8 @@ export const insertSecods: ( req:Request,res:Response ) => Promise<any> = async 
 
     const obj = req.body;
 
+    // console.log(obj)
+
     try {
         if(!obj.elements || typeof(obj.elements)!=='object'){
             const apiResponse : ApiResponse = {
