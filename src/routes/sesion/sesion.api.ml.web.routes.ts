@@ -1,16 +1,19 @@
 import { Router }               from "express";
-import { SesionWebController }  from '../../controllers/sesion/sesion.api.ml.web.controllers';
+import { getMenu } from '../../controllers/sesion/web/sesion.controllers.web.getListMenu'
+import { getOperations } from '../../controllers/sesion/web/sesion.controllers.web.getListOperations'
 
-export class SesionWebRouter extends SesionWebController {
+export class SesionWebRouter{
 
     public webRouter = Router();
 
     constructor(){
-        super()
         this.inizialicer();
     }
     inizialicer(){
-        this.webRouter.get('/get/operation/:id',this.getOperations);
-        this.webRouter.get('/get/menu/:id',     this.getMenu);
+
+        this.webRouter.get('/operation/:id', getOperations);
+        this.webRouter.get('/menu/:id',      getMenu);
+
+
     }
 }
