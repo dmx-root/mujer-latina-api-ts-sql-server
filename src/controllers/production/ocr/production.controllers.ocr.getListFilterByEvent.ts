@@ -22,12 +22,14 @@ interface DbResponse {
 export const getListFilterByEvent : (req:Request,res:Response)=> Promise<any> = async (req:Request,res:Response) => {
 
     const { id } = req.params;
+
+    console.log(id)
     
     const params:Array<dbParameters> =[
         {
             name:'id_anormalidad',
-            type:sql.BigInt ||null,
-            value:id
+            type:sql.VarChar ||null,
+            value:id==='00' ?null:id
         }
     ];
     try {
