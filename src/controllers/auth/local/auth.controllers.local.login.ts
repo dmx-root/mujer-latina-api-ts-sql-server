@@ -23,10 +23,9 @@ interface ApiResponse {
 }
 
 export const login : ( req : Request, res : Response ) => Promise <any> = async (req:Request, res:Response) => {
-    const {
-        documentoId,
-        clave
-    } = req.query;
+
+    const documentoId = req.headers['documento-id'];
+    const clave = req.headers['clave'];
 
     const schema = yup.object().shape({
         documentoId: yup.string().required().min(5).max(20),
@@ -34,7 +33,10 @@ export const login : ( req : Request, res : Response ) => Promise <any> = async 
     });
     
     try {
-        await schema.validate(req.query)
+        await schema.validate({
+            documentoId,
+            clave
+        })
 
     } catch (error) {
         const errors:any=error

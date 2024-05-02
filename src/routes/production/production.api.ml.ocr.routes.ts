@@ -33,7 +33,7 @@ export class ProductionOcrRouter {
         this.ocrRouter.get('/list-filter-by-modulo/:id',  getListFilterByModulo);
         this.ocrRouter.get('/list-filter-by-revise/',     getListFilterByCheckState);
         this.ocrRouter.get('/list-filter-by-op-type/',    getListFilterByOpType);
-        this.ocrRouter.get('/list-filter-by-event/:id',   getListFilterByEvent); // revisar controladpr
+        this.ocrRouter.get('/list-filter-by-event/',      getListFilterByEvent); // revisar controladpr
         this.ocrRouter.get('/list-filter-by-op-detail/',  getListFilterByOp);
         this.ocrRouter.get('/list-filter-by-user/:id',    getListFilterByUser);
         

@@ -1,9 +1,9 @@
 import {Request, Response } from 'express';
 import sql                  from 'mssql';
 import { Conexion }         from '../../../db/conection';
-import { ApiResponse }      from '../../../interfaces/api/response';
 import { dbParameters }     from '../../../interfaces/db/dbInterface';
 import {HttpErrorResponse } from '../../../utilities/httpErrorResponse';
+import * as yup from 'yup';
 
 interface ApiDataResponse extends ApiResponse {
     data:Array<any>
@@ -19,19 +19,49 @@ interface DbResponse {
 
 }
 
+interface ApiResponse {
+    apiCode: -1 | 0 | 1,
+    apiMessage: string,
+    data?:any
+}
+
 export const getListFilterByEvent : (req:Request,res:Response)=> Promise<any> = async (req:Request,res:Response) => {
 
-    const { id } = req.params;
 
-    console.log(id)
-    
-    const params:Array<dbParameters> =[
+    const { event, user } = req.query;
+
+    const opDetailSchema = yup.object().shape({
+        event:yup.string().max(5).min(1),
+        user: yup.string().max(20).min(5),
+    });
+
+    const params : Array<dbParameters> = [
         {
             name:'id_anormalidad',
             type:sql.VarChar ||null,
-            value:id==='00' ?null:id
+            value: event 
+        },
+        {
+            name: 'id_usuario',
+            type: sql.VarChar,
+            value: user || null
         }
-    ];
+        
+    ]
+
+    try {
+        
+        await opDetailSchema.validate(req.query)
+
+    } catch (error) {
+        const errors:any=error
+        const apiResponse: ApiResponse = {
+            apiCode:-1,
+            apiMessage: errors.errors[0] 
+        }
+        return res.status(500).json(apiResponse);
+    }
+
     try {
         const db = new Conexion();
 
@@ -40,24 +70,24 @@ export const getListFilterByEvent : (req:Request,res:Response)=> Promise<any> = 
 
         if(response.statusCode === -1){
             const apiResponse: ApiResponse= {
-                statusCode: -1,
-                message: response.message || "No se obtuvo mensajes",
+                apiCode: -1,
+                apiMessage: response.message || "No se obtuvo mensajes",
             }
 
             return res.status(500).json(apiResponse);
         }
         if(response.statusCode === 0){
             const apiResponse: ApiResponse= {
-                statusCode: 0,
-                message: response.message || "No se obtuvo mensajes",
+                apiCode: 0,
+                apiMessage: response.message || "No se obtuvo mensajes",
             }
 
             return res.status(404).json(apiResponse);
         }
 
         const apiResponse: ApiDataResponse = {
-            statusCode: 1,
-            message: 'Consulta exitosa',
+            apiCode: 1,
+            apiMessage: 'Consulta exitosa',
             data:response.data
         }
 
