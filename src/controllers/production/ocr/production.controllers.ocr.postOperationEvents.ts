@@ -23,15 +23,13 @@ interface ApiResponse {
 }
 
 interface BodyInterface {
-    op:string,
-    colorId:string,
-    talla:string,
+    ocrId:number
+    cantidadModificada:number,
+    descripcion: string,
     operarioId:string,
-    moduloId:number,
-    unidades:number
 }
 
-export const insertSecods: ( req:Request,res:Response ) => Promise<any> = async ( req:Request,res:Response ) => {
+export const insersionOperationEvents: ( req:Request,res:Response ) => Promise<any> = async ( req:Request,res:Response ) => {
 
     const obj = req.body;
 
@@ -46,13 +44,10 @@ export const insertSecods: ( req:Request,res:Response ) => Promise<any> = async 
         const  elements : BodyInterface[] = req.body.elements;
         
         const schema = yup.object().shape({
-            
-            op:         yup.string().required("El campo 'op' no fue proporcionado en alguno de los elementos").max(500).min(5),
-            colorId:    yup.string().required("El campo 'color' no fue proporcionado en alguno de los elementos").max(5).min(3),
-            talla:      yup.string().required("El campo 'talla' no fue proporcionado en alguno de los elementos").max(10).min(1),
-            operarioId: yup.string().required("El campo 'operarioId' no fue proporcionado en alguno de los elementos").max(20).min(5),
-            moduloId:   yup.number().required("El campo 'moduloId' no fue proporcionado en alguno de los elementos"),
-            unidades:   yup.number().required("El campo 'unidades' no fue proporcionado en alguno de los elementos")
+            ocrId:              yup.number().required("El campo 'ocrId' no fue proporcionado en alguno de los elementos"),
+            descripcion:        yup.string().required("El campo 'descripcion' no fue proporcionado en alguno de los elementos").max(50).min(5),
+            operarioId:         yup.string().required("El campo 'operarioId' no fue proporcionado en alguno de los elementos").max(20).min(5),
+            cantidadModificada: yup.number().required("El campo 'cantidadModificada' no fue proporcionado en alguno de los elementos")
     
         });
     
@@ -113,59 +108,29 @@ export const insertSecods: ( req:Request,res:Response ) => Promise<any> = async 
     
                 const params : dbParameters[] = [
                     {
-                        name: 'id_op',
-                        type: sql.VarChar,
-                        value: element.op
+                        name: 'id_ocr',
+                        type: sql.Int,
+                        value: element.ocrId
                     },
                     {
-                        name: 'id_color',
-                        type: sql.VarChar,
-                        value: element.colorId
+                        name: 'cantidad_modificada',
+                        type: sql.Int,
+                        value: element.cantidadModificada
                     },
                     {
-                        name: 'talla',
+                        name: 'descripcion',
                         type: sql.VarChar,
-                        value: element.talla
+                        value: element.descripcion
                     },
                    
                     {
-                        name: 'ingresado_por',
+                        name: 'modificado_por',
                         type: sql.VarChar,
                         value: element.operarioId
-                    },
-                    {
-                        name: 'inicio_operacion',
-                        type: sql.VarChar,
-                        value: null
-                    },
-                    {
-                        name: 'fin_operacion',
-                        type: sql.VarChar,
-                        value: null
-                    },
-                    {
-                        name: 'id_modulo',
-                        type: sql.Int,
-                        value: element.moduloId
-                    },
-                    {
-                        name: 'cantidad',
-                        type: sql.Int,
-                        value: element.unidades
-                    },
-                    {
-                        name: 'id_anormalidad',
-                        type: sql.VarChar,
-                        value: null
-                    },
-                    {
-                        name: 'id_categoria',
-                        type: sql.Int,
-                        value: 2
-                    }               
+                    }             
                 ]
             
-                const response : DbResponse = await db.execute('sp_gestion_ml_db_produccion_insercion_ocr',params);            
+                const response : DbResponse = await db.execute('sp_gestion_ml_db_produccion_insersion_ocr_evento',params);            
                 console.log(message)
                 // console.log(response)
 
