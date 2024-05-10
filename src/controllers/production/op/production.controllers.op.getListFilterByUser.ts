@@ -46,7 +46,15 @@ export const getListFilterByUser : ( req:Request,res:Response ) => Promise<any> 
                 apiMessage: response.message || "No obtuvo mensajes",
             }
             
-            return res.status(200).json(apiResponse);
+            return res.status(404).json(apiResponse);
+        }
+        if(response.statusCode === -1){
+            const apiResponse: ApiResponse= {
+                apiCode: -1,
+                apiMessage: response.message || "No obtuvo mensajes",
+            }
+            
+            return res.status(500).json(apiResponse);
         }
         
         const apiResponse: ApiResponse = {

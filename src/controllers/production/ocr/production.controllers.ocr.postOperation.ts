@@ -140,7 +140,8 @@ export const insertOperation: ( req:Request,res:Response )=>Promise<any> = async
 
         const apiResponse : ApiResponse = {
             apiCode:1,
-            apiMessage: 'Consulta exitosa'
+            apiMessage: 'Consulta exitosa',
+            data:response.data
         }
         return res.status(200).json(apiResponse);
 
