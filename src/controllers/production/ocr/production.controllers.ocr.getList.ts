@@ -27,7 +27,7 @@ export const getList:(req:Request,res:Response) => Promise<any> = async (req:Req
     try {
         const db = new Conexion(); 
         const response : DbResponse = await db.execute('sp_gestion_ml_db_produccion_solicitud_ocr_lista_completa');
-        
+
         if(response.statusCode === 0){
             const apiResponse: ApiResponse ={
                 apiCode:0,

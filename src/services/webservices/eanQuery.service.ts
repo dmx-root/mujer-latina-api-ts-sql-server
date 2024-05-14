@@ -2,6 +2,10 @@ import axios                                    from 'axios';
 import { AxiosResponse, AxiosRequestConfig }    from 'axios';
 import { eanConfig }                            from './config.service';
 import { parseString }                          from 'xml2js';
+import dotenv from 'dotenv';
+
+dotenv.config()
+
 
 interface ResponseInterface {
     statusCode: 1 | 0 | -1,
