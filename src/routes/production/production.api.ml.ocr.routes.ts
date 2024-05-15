@@ -37,6 +37,6 @@ export class ProductionOcrRouter {
         this.ocrRouter.get('/list-filter-by-op-type/',    getListFilterByOpType);
         this.ocrRouter.get('/list-filter-by-event/',      getListFilterByEvent); 
         this.ocrRouter.get('/list-filter-by-op-detail/',  getListFilterByOp);
-        this.ocrRouter.get('/list-filter-by-user/:id',    getListFilterByUser);
+        this.ocrRouter.get('/list-filter-by-user/',    getListFilterByUser);
     }
 }
