@@ -22,17 +22,21 @@ interface DbResponse {
 interface ApiResponse {
     apiCode: -1 | 0 | 1,
     apiMessage: string,
-    data?:any
+    data?:any,
+    dataLength?:number;
+    date?: string
 }
 
 export const getListFilterByEvent : (req:Request,res:Response)=> Promise<any> = async (req:Request,res:Response) => {
 
 
-    const { event, user } = req.query;
+    const { event, user, page, pageSize  } = req.query;
 
     const opDetailSchema = yup.object().shape({
         event:yup.string().max(5).min(1),
         user: yup.string().max(20).min(5),
+        page:yup.number().min(1).max(50),
+        pageSize:yup.number().max(50).min(1),
     });
 
     const params : Array<dbParameters> = [
@@ -45,6 +49,16 @@ export const getListFilterByEvent : (req:Request,res:Response)=> Promise<any> = 
             name: 'id_usuario',
             type: sql.VarChar,
             value: user || null
+        },
+        {
+            name:'offset',
+            type:sql.Int,
+            value:page && pageSize ? (parseInt(page.toString())-1)*parseInt(pageSize.toString()):0
+        },
+        {
+            name: 'cantidad',
+            type: sql.Int,
+            value: page && pageSize? pageSize :20
         }
         
     ]
@@ -88,6 +102,8 @@ export const getListFilterByEvent : (req:Request,res:Response)=> Promise<any> = 
         const apiResponse: ApiDataResponse = {
             apiCode: 1,
             apiMessage: 'Consulta exitosa',
+            dataLength:response.data?.length,
+            date:new Date().toDateString(),
             data:response.data
         }
 
