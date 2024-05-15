@@ -32,7 +32,7 @@ export class ProductionOcrRouter {
         this.ocrRouter.post('/segundas/',   insertSecods);
         
         this.ocrRouter.get('/list-filter-by-category/',   getListFilterByCategory);
-        this.ocrRouter.get('/list-filter-by-modulo/:id',  getListFilterByModulo);
+        this.ocrRouter.get('/list-filter-by-modulo/',  getListFilterByModulo);
         this.ocrRouter.get('/list-filter-by-revise/',     getListFilterByCheckState);
         this.ocrRouter.get('/list-filter-by-op-type/',    getListFilterByOpType);
         this.ocrRouter.get('/list-filter-by-event/',      getListFilterByEvent); 
