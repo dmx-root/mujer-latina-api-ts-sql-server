@@ -17,17 +17,20 @@ interface DbResponse {
 interface ApiResponse {
     apiCode: -1 | 0 | 1,
     apiMessage: string,
-    data?:any
+    data?:any,
+    dataLength?:number;
+    date?: string
 }
-
 
 export const  getListFilterByCategory : (req:Request,res:Response) => Promise<any> = async (req:Request,res:Response) => {
 
-    const { category, user } = req.query;
+    const { category, user, page, pageSize } = req.query;
 
     const opDetailSchema = yup.object().shape({
         category:yup.number().required(),
         user:yup.string().max(20).min(5),
+        page:yup.number().min(1).max(50),
+        pageSize:yup.number().max(50).min(1),
     });
 
     const params : Array<dbParameters> = [
@@ -40,6 +43,16 @@ export const  getListFilterByCategory : (req:Request,res:Response) => Promise<an
             name: 'id_usuario',
             type: sql.VarChar,
             value: user || null
+        },
+        {
+            name:'offset',
+            type:sql.Int,
+            value:page && pageSize ? (parseInt(page.toString())-1)*parseInt(pageSize.toString()):0
+        },
+        {
+            name: 'cantidad',
+            type: sql.Int,
+            value: page && pageSize? pageSize :20
         }
         
     ]
@@ -61,7 +74,6 @@ export const  getListFilterByCategory : (req:Request,res:Response) => Promise<an
         const db = new Conexion();
 
         const response : DbResponse= await db.execute('sp_gestion_ml_db_produccion_solicitud_ocr_lista_filtrada_categoria',params);
-        // console.log(response);
 
         if(response.statusCode=== -1){
             const apiResponse: ApiResponse= {
@@ -84,6 +96,8 @@ export const  getListFilterByCategory : (req:Request,res:Response) => Promise<an
         const apiResponse: ApiResponse = {
             apiCode: 1,
             apiMessage: 'Consulta exitosa',
+            dataLength:response.data?.length,
+            date:new Date().toDateString(),
             data:response.data
         }
 
