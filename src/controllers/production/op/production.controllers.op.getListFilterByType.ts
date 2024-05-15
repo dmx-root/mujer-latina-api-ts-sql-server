@@ -16,15 +16,19 @@ interface DbResponse {
 interface ApiResponse {
     apiCode: -1 | 0 | 1,
     apiMessage: string,
-    data?:any
+    data?:any,
+    dataLength?:number;
+    date?: string
 }
 
 export const getListFilterByType : ( req:Request, res:Response ) => Promise<any> = async (req:Request,res:Response) => {
-    const { type, user } = req.query;
+    const { type, user, page, pageSize } = req.query;
 
     const schema = yup.object().shape({
         type:yup.string().required().max(3).min(2),
         user:yup.string().max(20).min(5),
+        page:yup.number().max(50).min(1),
+        pageSize:yup.number().max(50).min(1),
     });
 
     const params : Array<dbParameters> = [
@@ -37,6 +41,16 @@ export const getListFilterByType : ( req:Request, res:Response ) => Promise<any>
             name: 'id_usuario',
             type: sql.VarChar,
             value: user || null
+        },
+        {
+            name:'offset',
+            type:sql.Int,
+            value:page && pageSize ? (parseInt(page.toString())-1)*parseInt(pageSize.toString()):0
+        },
+        {
+            name: 'cantidad',
+            type: sql.Int,
+            value: page && pageSize? pageSize :20
         }  
     ]
 
@@ -48,6 +62,7 @@ export const getListFilterByType : ( req:Request, res:Response ) => Promise<any>
         const errors:any=error
         const apiResponse: ApiResponse = {
             apiCode:-1,
+            date:new Date().toDateString(),
             apiMessage: errors.errors[0] 
         }
         return res.status(500).json(apiResponse);
@@ -61,6 +76,7 @@ export const getListFilterByType : ( req:Request, res:Response ) => Promise<any>
         if(response.statusCode === -1){
             const apiResponse: ApiResponse= {
                 apiCode: -1,
+                date:new Date().toDateString(),
                 apiMessage: response.message ||'No se obtuvo mensajes',
             }
 
@@ -70,6 +86,7 @@ export const getListFilterByType : ( req:Request, res:Response ) => Promise<any>
         if(response.statusCode === 0){
             const apiResponse: ApiResponse= {
                 apiCode: 0,
+                date:new Date().toDateString(),
                 apiMessage: response.message ||'No se obtuvo mensajes',
             }
 
@@ -79,6 +96,8 @@ export const getListFilterByType : ( req:Request, res:Response ) => Promise<any>
         const apiResponse: ApiResponse = {
             apiCode: 1,
             apiMessage: 'Consulta exitosa',
+            dataLength:response.data?.length,
+            date:new Date().toDateString(),
             data:response.data
         }
 
@@ -88,6 +107,7 @@ export const getListFilterByType : ( req:Request, res:Response ) => Promise<any>
         console.log(error);
         const apiResponse: ApiResponse= {
             apiCode: -1,
+            date:new Date().toDateString(),
             apiMessage: "Error interno del servidor",
         }
 

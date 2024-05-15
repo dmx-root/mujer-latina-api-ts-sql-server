@@ -1,10 +1,9 @@
-import {Request, Response } from 'express';
-import { Conexion }         from '../../../db/conection';
-import { HttpErrorResponse } from '../../../utilities/httpErrorResponse';
-import * as yup from 'yup'
-import { dbParameters }         from '../../../interfaces/db/dbInterface';
-
+import * as yup                 from 'yup'
+import {Request, Response }     from 'express';
 import sql                      from 'mssql';
+import { Conexion }             from '../../../db/conection';
+import { HttpErrorResponse }    from '../../../utilities/httpErrorResponse';
+import { dbParameters }         from '../../../interfaces/db/dbInterface';
 
 
 interface ApiDataResponse extends ApiResponse {
