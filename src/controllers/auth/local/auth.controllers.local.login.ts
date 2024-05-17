@@ -117,6 +117,11 @@ export const login : ( req : Request, res : Response ) => Promise <any> = async 
 
         return res.status(200).setHeader('Authorization-Token',token).json(apiResponse);
     } catch (error) {
-        
+              
+        const apiResponse : ApiResponse = {
+            apiCode: 1,
+            apiMessage: 'Error interno de servidor'
+        }
+        return res.status(500).json(apiResponse); 
     }
 }

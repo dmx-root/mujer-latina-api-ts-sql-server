@@ -5,7 +5,6 @@ import { dbParameters }     from '../../../interfaces/db/dbInterface';
 import { HttpErrorResponse } from "../../../utilities/httpErrorResponse";
 import * as yup from "yup"
 
-
 interface DbResponse {
 
     statusCode: 1 | 0 | -1,
@@ -22,7 +21,6 @@ interface ApiResponse {
     dataLength?:number;
     date?: string
 }
-
 
 export const  getListFilterByCheckState : ( req:Request,res:Response )=>Promise<any> = async ( req:Request,res:Response ) => {
 
@@ -74,7 +72,6 @@ export const  getListFilterByCheckState : ( req:Request,res:Response )=>Promise<
 
     try {
         const db = new Conexion();
-
         const response : DbResponse = await db.execute('sp_gestion_ml_db_produccion_solicitud_ocr_lista_filtrada_estado_revision',params);
 
         if(response.statusCode === -1){
@@ -82,7 +79,6 @@ export const  getListFilterByCheckState : ( req:Request,res:Response )=>Promise<
                 apiCode: -1,
                 apiMessage: response.message || "No se obtuvo mensajes",
             }
-
             return res.status(500).json(apiResponse);
         }
 
@@ -90,9 +86,7 @@ export const  getListFilterByCheckState : ( req:Request,res:Response )=>Promise<
             const apiResponse: ApiResponse= {
                 apiCode: 0,
                 apiMessage: response.message || "No se obtuvo mensajes",
-
             }
-
             return res.status(404).json(apiResponse);
         }
 
@@ -103,7 +97,6 @@ export const  getListFilterByCheckState : ( req:Request,res:Response )=>Promise<
             date:new Date().toDateString(),
             data:response.data
         }
-
         return res.status(200).json(apiResponse);
         
     } catch (error) {
