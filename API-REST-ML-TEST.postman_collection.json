@@ -1,0 +1,1248 @@
+{
+	"info": {
+		"_postman_id": "de63ad03-f7bc-4664-b6e0-41addc694896",
+		"name": "API-REST-ML-TEST",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "28450832"
+	},
+	"item": [
+		{
+			"name": "DEV",
+			"item": [
+				{
+					"name": "ADMINISTRATIVE",
+					"item": [
+						{
+							"name": "USERS",
+							"item": [
+								{
+									"name": "ELEMENTO UNICO",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authenticate-Token",
+												"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIxMTQ2NDQxOTI1IiwidXNlck5hbWUiOiJEQVZJRCBFU1RFQkFOIE1PUkFMRVMgw5FVU1RFUyIsInJvbGVJZCI6MSwicm9sZU5hbWUiOiJBRE1JTklTVFJBRE9SIiwiaWF0IjoxNzEyMTY2ODQyLCJleHAiOjE3MTQ3OTY2NDJ9.wXYacZ18rV9ACP4obQoinvXVo_GZmKsQcPPCAEg2APKf5zSEUHz0rhB38TdWZVWfc93xJzZJ0Hyqnengzp9jy11tm5xV1p6iHNS0cT1fzjvOVtpn0By5N_vtrpRDo8izza3-MdEeBZflxh5V1fqOk9q5j0h3zdfkXGT0_lVN3b3lK-tSKLR_n-q49ih5MitmYiFx-btirPgn1X_H6_m7yy7c0y5WsaXKlj7n-ybw8Gkp-g35M2LDhgGtktNvj5r0b5-puCYDBaZ85fkUV4QBiagbZL2Rfb4X0W5gYjeyGtk_TsqRGfl05bpiGBaiRHRFeRiwqFLdkLl29tVuaO_9dA",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "http://localhost:8080/api/ml/administrative/user/element/1146441925",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"api",
+												"ml",
+												"administrative",
+												"user",
+												"element",
+												"1146441925"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "OCR",
+							"item": []
+						},
+						{
+							"name": "OP",
+							"item": []
+						},
+						{
+							"name": "MODULOS",
+							"item": []
+						}
+					]
+				},
+				{
+					"name": "PRODUCTION",
+					"item": [
+						{
+							"name": "USERS",
+							"item": []
+						},
+						{
+							"name": "OCR",
+							"item": [
+								{
+									"name": "LISTA COMPLETA - OCR",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:8080/api/ml/production/ocr/list",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"api",
+												"ml",
+												"production",
+												"ocr",
+												"list"
+											],
+											"query": [
+												{
+													"key": "page",
+													"value": "15",
+													"disabled": true
+												},
+												{
+													"key": "pageSize",
+													"value": "5",
+													"disabled": true
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "ELEMENTO UNICO- OCR",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:8080/api/ml/production/ocr/element/6",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"api",
+												"ml",
+												"production",
+												"ocr",
+												"element",
+												"6"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "LISTA FILTRADA POR DETALLE DE OP - OCR",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:8080/api/ml/production/ocr/list-filter-by-op-detail/?op=MOP4467&color=1309&talla=9&page=2&pageSize=5",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"api",
+												"ml",
+												"production",
+												"ocr",
+												"list-filter-by-op-detail",
+												""
+											],
+											"query": [
+												{
+													"key": "op",
+													"value": "MOP4467"
+												},
+												{
+													"key": "color",
+													"value": "1309"
+												},
+												{
+													"key": "talla",
+													"value": "9"
+												},
+												{
+													"key": "page",
+													"value": "2"
+												},
+												{
+													"key": "pageSize",
+													"value": "5"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "LISTA FILTRADA POR MODULO",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:8080/api/ml/production/ocr/list-filter-by-modulo/?modulo=2&page=1&pageSize=6",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"api",
+												"ml",
+												"production",
+												"ocr",
+												"list-filter-by-modulo",
+												""
+											],
+											"query": [
+												{
+													"key": "modulo",
+													"value": "2"
+												},
+												{
+													"key": "page",
+													"value": "1"
+												},
+												{
+													"key": "pageSize",
+													"value": "6"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "LISTA FILTRADA POR ESTADO DEL REGISTRO",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:8080/api/ml/production/ocr/list-filter-by-revise?state=0&user=1152460381&page=1&pageSize=5",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"api",
+												"ml",
+												"production",
+												"ocr",
+												"list-filter-by-revise"
+											],
+											"query": [
+												{
+													"key": "state",
+													"value": "0"
+												},
+												{
+													"key": "user",
+													"value": "1152460381"
+												},
+												{
+													"key": "page",
+													"value": "1"
+												},
+												{
+													"key": "pageSize",
+													"value": "5"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "LISTA FILTRADA POR EVENTO",
+									"request": {
+										"auth": {
+											"type": "apikey"
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:8080/api/ml/production/ocr/list-filter-by-event?page=1&pageSize=5",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"api",
+												"ml",
+												"production",
+												"ocr",
+												"list-filter-by-event"
+											],
+											"query": [
+												{
+													"key": "user",
+													"value": "1146441925",
+													"disabled": true
+												},
+												{
+													"key": "event",
+													"value": "02",
+													"disabled": true
+												},
+												{
+													"key": "page",
+													"value": "1"
+												},
+												{
+													"key": "pageSize",
+													"value": "5"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "LISTA FILTRADA POR CATEGORIA",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:8080/api/ml/production/ocr/list-filter-by-category?category=1&page=1&pageSize=5",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"api",
+												"ml",
+												"production",
+												"ocr",
+												"list-filter-by-category"
+											],
+											"query": [
+												{
+													"key": "user",
+													"value": "1146441925",
+													"disabled": true
+												},
+												{
+													"key": "category",
+													"value": "1"
+												},
+												{
+													"key": "page",
+													"value": "1"
+												},
+												{
+													"key": "pageSize",
+													"value": "5"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "LISTA FILTRADA POR USUARIO DE PLANTA",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:8080/api/ml/production/ocr/list-filter-by-user?user=1146441925&page=1&pageSize=10",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"api",
+												"ml",
+												"production",
+												"ocr",
+												"list-filter-by-user"
+											],
+											"query": [
+												{
+													"key": "user",
+													"value": "1146441925"
+												},
+												{
+													"key": "page",
+													"value": "1"
+												},
+												{
+													"key": "pageSize",
+													"value": "10"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "LISTA FILTRADA POR TIPO DE OP",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:8080/api/ml/production/ocr/list-filter-by-op-type?user=1152460381&type=MOB&page=1&pageSize=5",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"api",
+												"ml",
+												"production",
+												"ocr",
+												"list-filter-by-op-type"
+											],
+											"query": [
+												{
+													"key": "user",
+													"value": "1152460381"
+												},
+												{
+													"key": "type",
+													"value": "MOB"
+												},
+												{
+													"key": "page",
+													"value": "1"
+												},
+												{
+													"key": "pageSize",
+													"value": "5"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "PUBLICACION DE REGISTRO",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n        \"op\":\"MOP4468\",\r\n        \"color\":\"1303\",\r\n        \"talla\":\"S\",\r\n        \"inicio\":\"07:25:52\",\r\n        \"finalizacion\":\"08:19:52\",\r\n        \"operarioId\":\"1146441925\",\r\n        \"modulo\":7,\r\n        \"unidades\":12,\r\n        \"anormalidad\": null\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8080/api/ml/production/ocr/element",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"api",
+												"ml",
+												"production",
+												"ocr",
+												"element"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "REVISION DE UNIDADES",
+									"request": {
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"ocrId\":0,\r\n    \"operarioId\":\"1146441925\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8080/api/ml/production/ocr/element/",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"api",
+												"ml",
+												"production",
+												"ocr",
+												"element",
+												""
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "PUBLICACION  DE REGISTRO DE SEGUNDAS",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"elements\":[\r\n        {\r\n            \"op\":\"MOP4468\",\r\n            \"colorId\":\"1303\",\r\n            \"talla\":\"S\",\r\n            \"operarioId\":\"1146441925\",\r\n            \"moduloId\":1,\r\n            \"unidades\":2\r\n        },\r\n        {\r\n            \"op\":\"MOP4468\",\r\n            \"colorId\":\"1303\",\r\n            \"talla\":\"L\",\r\n            \"operarioId\":\"1146441925\",\r\n            \"moduloId\":1,\r\n            \"unidades\":3\r\n        },\r\n        {\r\n            \"op\":\"MOP4468\",\r\n            \"colorId\":\"1303\",\r\n            \"talla\":\"M\",\r\n            \"operarioId\":\"1146441925\",\r\n            \"moduloId\":1,\r\n            \"unidades\":5\r\n        }\r\n    ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8080/api/ml/production/ocr/segundas",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"api",
+												"ml",
+												"production",
+												"ocr",
+												"segundas"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "PUBLICACION DE EVENTO DURANTE LA OPERACION",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"elements\":[\r\n        {\r\n            \"ocrId\":43,\r\n            \"cantidadModificada\":4,\r\n            \"descripcion\": \"El operario editó las unidades del registro\",\r\n            \"operarioId\":\"1146441925\"\r\n        },\r\n        {\r\n            \"ocrId\":43,\r\n            \"cantidadModificada\":20,\r\n            \"descripcion\": \"El operario eliminó las unidades del registro\",\r\n            \"operarioId\":\"1146441925\"\r\n        }\r\n    ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8080/api/ml/production/ocr/events",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"api",
+												"ml",
+												"production",
+												"ocr",
+												"events"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "OP",
+							"item": [
+								{
+									"name": "PUBLICACION DE OP",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"op\": \"MOP4467\",\r\n    \"operarioId\": \"1146441925\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8080/api/ml/production/op/element",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"api",
+												"ml",
+												"production",
+												"op",
+												"element"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "LISTA COMPLETA",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:8080/api/ml/production/op/list?page=2&pageSize=2",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"api",
+												"ml",
+												"production",
+												"op",
+												"list"
+											],
+											"query": [
+												{
+													"key": "page",
+													"value": "2"
+												},
+												{
+													"key": "pageSize",
+													"value": "2"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "ELEMENTO UNICO",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:8080/api/ml/production/op/element/MOP4266",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"api",
+												"ml",
+												"production",
+												"op",
+												"element",
+												"MOP4266"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "LISTA DE DETALLES",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:8080/api/ml/production/op/list-details/MOB3672",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"api",
+												"ml",
+												"production",
+												"op",
+												"list-details",
+												"MOB3672"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "LISTA FILTRADA POR REFERENCIA",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:8080/api/ml/production/op/list-filter-by-reference/MAR110666",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"api",
+												"ml",
+												"production",
+												"op",
+												"list-filter-by-reference",
+												"MAR110666"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "LISTA FILTRADA POR ESTADO DEL PROCESO",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:8080/api/ml/production/op/list-filter-by-state?state=1&user=1152460381&page=1&pageSize=2",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"api",
+												"ml",
+												"production",
+												"op",
+												"list-filter-by-state"
+											],
+											"query": [
+												{
+													"key": "state",
+													"value": "1"
+												},
+												{
+													"key": "user",
+													"value": "1152460381"
+												},
+												{
+													"key": "page",
+													"value": "1"
+												},
+												{
+													"key": "pageSize",
+													"value": "2"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "LISTA FILTRADA POR TIPO",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:8080/api/ml/production/op/list-filter-by-type?user=1146441925&type=MOP&page=2&pageSize=5",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"api",
+												"ml",
+												"production",
+												"op",
+												"list-filter-by-type"
+											],
+											"query": [
+												{
+													"key": "user",
+													"value": "1146441925"
+												},
+												{
+													"key": "type",
+													"value": "MOP"
+												},
+												{
+													"key": "page",
+													"value": "2"
+												},
+												{
+													"key": "pageSize",
+													"value": "5"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "LISTA FILTRADA POR USUARIO DE PLANTA",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:8080/api/ml/production/op/list-filter-by-user?user=1146441925&page=1&pageSize=5",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"api",
+												"ml",
+												"production",
+												"op",
+												"list-filter-by-user"
+											],
+											"query": [
+												{
+													"key": "user",
+													"value": "1146441925"
+												},
+												{
+													"key": "page",
+													"value": "1"
+												},
+												{
+													"key": "pageSize",
+													"value": "5"
+												}
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "MODULOS",
+							"item": [
+								{
+									"name": "LISTA COMPLETA",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:8080/api/ml/production/modulo/list",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"api",
+												"ml",
+												"production",
+												"modulo",
+												"list"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "ELEMENTO UNICO",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:8080/api/ml/production/modulo/element/30",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"api",
+												"ml",
+												"production",
+												"modulo",
+												"element",
+												"30"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "LISTA FILTRADA POR ESTADO DEL PROCESO",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:8080/api/ml/production/modulo/list-filter-by-state/1",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"api",
+												"ml",
+												"production",
+												"modulo",
+												"list-filter-by-state",
+												"1"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "LISTA COMPLETA DE OPERARIOS",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:8080/api/ml/production/modulo/list-all-employees",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"api",
+												"ml",
+												"production",
+												"modulo",
+												"list-all-employees"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "LISTA DE OPERARIOS FILTRADA POR MODULO",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:8080/api/ml/production/modulo/list-filter-employee/5",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"api",
+												"ml",
+												"production",
+												"modulo",
+												"list-filter-employee",
+												"5"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "VINCULACION Y DESVINCULACION DE OPERARIOS",
+									"request": {
+										"method": "PUT",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:8080/api/ml/production/modulo/handler-employees?modulo=1&employee=227&user=1146441925",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"api",
+												"ml",
+												"production",
+												"modulo",
+												"handler-employees"
+											],
+											"query": [
+												{
+													"key": "modulo",
+													"value": "1"
+												},
+												{
+													"key": "employee",
+													"value": "227"
+												},
+												{
+													"key": "user",
+													"value": "1146441925"
+												}
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "AUTH",
+					"item": [
+						{
+							"name": "LOCAL",
+							"item": [
+								{
+									"name": "LOGIN",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authenticate-Token",
+												"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIxMTQ2NDQxOTI1IiwidXNlck5hbWUiOiJEQVZJRCBFU1RFQkFOIE1PUkFMRVMgw5FVU1RFUyIsInJvbGVJZCI6MSwicm9sZU5hbWUiOiJBRE1JTklTVFJBRE9SIiwiaWF0IjoxNzEyMTY2ODQyLCJleHAiOjE3MTQ3OTY2NDJ9.wXYacZ18rV9ACP4obQoinvXVo_GZmKsQcPPCAEg2APKf5zSEUHz0rhB38TdWZVWfc93xJzZJ0Hyqnengzp9jy11tm5xV1p6iHNS0cT1fzjvOVtpn0By5N_vtrpRDo8izza3-MdEeBZflxh5V1fqOk9q5j0h3zdfkXGT0_lVN3b3lK-tSKLR_n-q49ih5MitmYiFx-btirPgn1X_H6_m7yy7c0y5WsaXKlj7n-ybw8Gkp-g35M2LDhgGtktNvj5r0b5-puCYDBaZ85fkUV4QBiagbZL2Rfb4X0W5gYjeyGtk_TsqRGfl05bpiGBaiRHRFeRiwqFLdkLl29tVuaO_9dA",
+												"type": "text",
+												"disabled": true
+											},
+											{
+												"key": "documento-id",
+												"value": "1146441925",
+												"type": "text"
+											},
+											{
+												"key": "clave",
+												"value": "1234",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8080/api/ml/auth/local/login",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"api",
+												"ml",
+												"auth",
+												"local",
+												"login"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "SIGN IN",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"documentoId\": \"71267435\",\r\n    \"clave\": \"1234\",\r\n    \"perfil\":5,\r\n    \"documentoTipoId\":1,\r\n    \"usuario\": \"1146441925\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8080/api/ml/auth/local/signin",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"api",
+												"ml",
+												"auth",
+												"local",
+												"signin"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "INGRESO CON TOKEN",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authenticate-Token",
+												"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIxMTQ2NDQxOTI1IiwidXNlck5hbWUiOiJEQVZJRCBFU1RFQkFOIE1PUkFMRVMgw5FVU1RFUyIsInVzZXJEZXNjcmlwdGlvbiI6IkRlc2Fycm9sbGFkb3IganVuaW9yIiwicm9sZUlkIjoxLCJyb2xlTmFtZSI6IkFETUlOSVNUUkFET1IiLCJkb2N1bWVudFR5cGVJZCI6MSwiZG9jdWVtZW50VHlwZU5hbWUiOiJDRURVTEEgREUgQ0lVREFEQU5JQSIsImlhdCI6MTcxMjMyMzUzMSwiZXhwIjoxNzE0OTUzMzMxfQ.kDtbYyhrf0HHP1hJYRYUrERWtXjozHDunnDsIAePGyo4HWoQSLGoZ5mLhTS2AUgReIxJkrmGhgJXNyUrC8A5h0EphJmNuJEhp9kHqSpZfxt1SmtI92mqEpV5MWblgCiGAkBHczQVwCNB6tbDcHzBuqefvtqaz4qimaI9Letlqbb-pDtakGon7z-O0GqnRLfBeRt9FN0gMYwpBK6E8x8hZ-eFy6gzmdGqkX4FoyQFG84-3Wp0N4lWKrsUTYi_QxyiakytU-numP5F8acRu_kA_qJqk7DSbsGqowbJQjALn-WTXnkpHe5DoE2b8PrvOYDYj7NRuNMzDEz_OVUzYyK7hg",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "http://localhost:8080/api/ml/auth/local/auth-by-token/",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"api",
+												"ml",
+												"auth",
+												"local",
+												"auth-by-token",
+												""
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "AWS",
+							"item": []
+						}
+					]
+				},
+				{
+					"name": "SESION",
+					"item": [
+						{
+							"name": "MOBILE",
+							"item": [
+								{
+									"name": "LISTA - ITEMS - OPERACIONES",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:8080/api/ml/sesion/mobile/operation/1",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"api",
+												"ml",
+												"sesion",
+												"mobile",
+												"operation",
+												"1"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "LISTA - ITEMS - MENU",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:8080/api/ml/sesion/mobile/menu/1",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"api",
+												"ml",
+												"sesion",
+												"mobile",
+												"menu",
+												"1"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "LISTA - ITEMS - ANORMALIDAD",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:8080/api/ml/sesion/mobile/anomaly/list",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"api",
+												"ml",
+												"sesion",
+												"mobile",
+												"anomaly",
+												"list"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "WEB",
+							"item": [
+								{
+									"name": "LISTA - ITEMS - MENU",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:8080/api/ml/sesion/web/menu/1",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"api",
+												"ml",
+												"sesion",
+												"web",
+												"menu",
+												"1"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "LISTA - ITEMS - OPERACIONES",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:8080/api/ml/sesion/web/operation/1",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"api",
+												"ml",
+												"sesion",
+												"web",
+												"operation",
+												"1"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "PROD",
+			"item": []
+		}
+	]
+}
