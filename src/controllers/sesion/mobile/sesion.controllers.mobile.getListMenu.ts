@@ -1,6 +1,4 @@
-import sql                      from 'mssql';
 import { Request, Response }    from "express";
-import { dbParameters }         from "../../../interfaces/db/dbInterface";
 import { Conexion }             from '../../../db/conection';
 import { HttpErrorResponse }    from '../../../utilities/httpErrorResponse';
 
@@ -20,24 +18,11 @@ interface ApiResponse {
 
 export const getMenu : (req:Request,res:Response) => Promise <Response> = async (req:Request,res:Response) => {
 
-    const { id } = req.params;
 
-    const params:Array<dbParameters> =[
-        {
-            name:'id_perfil',
-            type:sql.Int,
-            value:id
-        },
-        {
-            name:'id_entorno',
-            type:sql.Int,
-            value:1
-        },
-    ];
     try {
         const db = new Conexion();
 
-        const response : DbResponse = await db.execute('sp_gestion_ml_db_sesion_solicitud_menu_lista',params);
+        const response : DbResponse = await db.execute('sp_gestion_ml_db_sesion_solicitud_menu_lista');
 
         if(response.statusCode===0){
             const apiResponse: ApiResponse= {

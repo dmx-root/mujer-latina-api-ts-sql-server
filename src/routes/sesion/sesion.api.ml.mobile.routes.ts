@@ -11,6 +11,6 @@ export class SesionMobileRouter{
     inizialicer(){
         this.mobileRouter.get('/anomaly/list',  getAnomalyList);
         this.mobileRouter.get('/operation/:id', getOperations);
-        this.mobileRouter.get('/menu/:id',      getMenu);
+        this.mobileRouter.get('/menu/',      getMenu);
     }
 }

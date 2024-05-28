@@ -12,8 +12,6 @@ export class SesionWebRouter{
     inizialicer(){
 
         this.webRouter.get('/operation/:id', getOperations);
-        this.webRouter.get('/menu/:id',      getMenu);
-
-
+        this.webRouter.get('/menu/',      getMenu);
     }
 }
