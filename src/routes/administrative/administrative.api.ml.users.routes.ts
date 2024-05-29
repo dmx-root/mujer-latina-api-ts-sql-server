@@ -1,7 +1,8 @@
 import { getOne }               from '../../controllers/administrative/users/administrative.controllers.users.getOne';
-import { routesAutentication }  from '../../middlewares/authRoutes'
 import { getUserListWS } from '../../controllers/administrative/users/administrative.controllers.users.getUserLisWS';
 import { getUserListDB } from '../../controllers/administrative/users/administrative.controllers.users.getUserListDB';
+import { getUserWS } from '../../controllers/administrative/users/administrative.controllers.users.getOneWS';
+
 import { Router }               from 'express';
 
 export class AdministrativeUserRouter{
@@ -13,8 +14,9 @@ export class AdministrativeUserRouter{
     }
 
     inizialicer(){
-        this.userRouter.get('/element/:id',             getOne);
-        this.userRouter.get('/list-by-web-service/',    getUserListWS)
-        this.userRouter.get('/list-by-data-base/',      getUserListDB)
+        this.userRouter.get('/element-by-data-base/:id',    getOne);
+        this.userRouter.get('/element-by-web-service/:id',  getUserWS);
+        this.userRouter.get('/list-by-web-service/',        getUserListWS);
+        this.userRouter.get('/list-by-data-base/',          getUserListDB);
     }
 }
