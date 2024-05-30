@@ -1,13 +1,16 @@
 import {Request, Response } from 'express';
 import sql                  from 'mssql';
 import { Conexion }         from '../../../db/conection';
-import { ApiResponse }      from '../../../interfaces/api/response';
 import { dbParameters }     from '../../../interfaces/db/dbInterface';
 import { HttpErrorResponse } from '../../../utilities/httpErrorResponse';
 
-interface ApiDataResponse extends ApiResponse {
-    data:Array<any>
-} 
+interface ApiResponse {
+    apiCode: -1 | 0 | 1,
+    apiMessage: string,
+    data?:any,
+    dataLength?:number;
+    date?: string
+}
 
 interface DbResponse {
 
@@ -37,8 +40,8 @@ export const  getOne: ( req:Request, res:Response )=>Promise< any > = async ( re
 
         if(response.statusCode === -1){
             const apiResponse: ApiResponse= {
-                statusCode: -1,
-                message: response.message || "No se obtuvieron mensajes",
+                apiCode: -1,
+                apiMessage: response.message || "No se obtuvieron mensajes",
             }
 
             return res.status(500).json(apiResponse);
@@ -46,27 +49,29 @@ export const  getOne: ( req:Request, res:Response )=>Promise< any > = async ( re
 
         if(response.statusCode === 0){
             const apiResponse: ApiResponse= {
-                statusCode: 0,
-                message: 'No se encontraron elementos',
+                apiCode: 0,
+                apiMessage: 'No se encontraron elementos',
             }
 
             return res.status(404).json(apiResponse);
         }
 
-        const apiResponse: ApiDataResponse = {
-            statusCode: 1,
-            message: 'Consulta exitosa',
+        const apiResponse: ApiResponse = {
+            apiCode: 1,
+            apiMessage: 'Consulta exitosa',
+            dataLength: 1,
+            date:new Date().toLocaleDateString(),
             data:response.data
         }
 
         return res.status(200).json(apiResponse);
         
     } catch (error) {
-        console.log(error)
 
         const apiResponse: ApiResponse= {
-            statusCode: -1,
-            message: "Error interno de servidor",
+            apiCode: -1,
+            apiMessage: "Error interno de servidor",
+            date:new Date().toLocaleDateString(),
         }
 
         return res.status(500).json(apiResponse);

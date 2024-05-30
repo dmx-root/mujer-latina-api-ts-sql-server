@@ -1,5 +1,6 @@
 import {Request, Response } from 'express';
-import { getUserWebService } from '../../../services/webservices/usuariosQuery.service'
+import { getUserWebService } from '../../../services/webservices/usuariosQuery.service';
+import * as yup from 'yup';
 
 interface ApiResponse {
     apiCode: -1 | 0 | 1,
@@ -11,10 +12,28 @@ interface ApiResponse {
 
 export const  getUserWS: ( req:Request, res:Response )=>Promise< any > = async ( req:Request,res:Response ) => {
 
-    const id = req.params;
+    const { documentoId } = req.query;
+
+    console.log(documentoId)
+
+    const moduloSchema = yup.object().shape({
+        documentoId:yup.string().min(5).max(20).required()
+    });
 
     try {
-        const user = await getUserWebService(id.toString())
+        await moduloSchema.validate(req.query)
+
+    } catch (error) {
+        const errors:any=error
+        const apiResponse: ApiResponse = {
+            apiCode:-1,
+            apiMessage: errors.errors[0] 
+        }
+        return res.status(500).json(apiResponse);
+    }
+
+    try {
+        const user = await getUserWebService(documentoId?.toString()||'')
 
         if(user.statusCode === -1 ){
             const apiResponse: ApiResponse = {

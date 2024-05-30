@@ -15,7 +15,7 @@ export class AdministrativeUserRouter{
 
     inizialicer(){
         this.userRouter.get('/element-by-data-base/:id',    getOne);
-        this.userRouter.get('/element-by-web-service/:id',  getUserWS);
+        this.userRouter.get('/element-by-web-service',      getUserWS);
         this.userRouter.get('/list-by-web-service/',        getUserListWS);
         this.userRouter.get('/list-by-data-base/',          getUserListDB);
     }
