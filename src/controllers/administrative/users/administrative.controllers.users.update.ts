@@ -4,7 +4,7 @@ import { Conexion }             from '../../../db/conection';
 import {Request, Response }     from 'express';
 import sql                      from 'mssql';
 import * as yup                 from 'yup';
-
+import { userFieldValidator }   from '../../../helpers/userFieldsValidator'
 
 interface ApiResponse {
     apiCode: -1 | 0 | 1,
@@ -22,20 +22,22 @@ interface DbResponse {
     err?: HttpErrorResponse
 }
 
-
-export const  updateElement: ( req:Request, res:Response )=>Promise< any > = async ( req:Request,res:Response ) => {
+export const  updateUser: ( req:Request, res:Response )=>Promise< any > = async ( req:Request,res:Response ) => {
     
-    const { modulo, campo, valor, ingresadoPor } = req.body;
+    const { usuario, campo, valor, ingresadoPor } = req.body;
     // console.log(req.body)
     const moduloSchema = yup.object().shape({
-        modulo: yup.number().min(1).max(50).required().strict(), 
-        campo:yup.string().min(1).max(50).required().strict(), 
-        valor: yup.string().min(1).max(50).required().strict(), 
-        ingresadoPor: yup.string().min(5).max(20).required().strict()
+        usuario:      yup.string().min(5).max(20).required("No se obtuvo el ID del usuario").strict(), 
+        campo:        yup.string().min(2).max(50).required("No se obtuvo el campo que desea modificar").strict(), 
+        ingresadoPor: yup.string().min(5).max(20).required("No se obtuvo el ID de la persona que está realizando la acción").strict()
     });
 
     try {
-        await moduloSchema.validate(req.body)
+        await moduloSchema.validate(req.body);
+        const response = await userFieldValidator({field:campo,value:valor});
+        if(response.apiCode!==1){
+            return res.status(response.status).json(response);
+        }
 
     } catch (error) {
         const errors:any=error
@@ -49,9 +51,9 @@ export const  updateElement: ( req:Request, res:Response )=>Promise< any > = asy
         
         const params : Array<dbParameters> = [
             {
-                name:'id_modulo',
+                name:'id_usuario',
                 type:sql.Int,
-                value:modulo
+                value:usuario
             },
             {
                 name: 'campo_a_actualizar',
@@ -61,7 +63,7 @@ export const  updateElement: ( req:Request, res:Response )=>Promise< any > = asy
             {
                 name: 'valor_nuevo',
                 type: sql.NVarChar,
-                value: valor
+                value: valor.toString()
             },  
             {
                 name: 'ingresado_por',
@@ -70,9 +72,10 @@ export const  updateElement: ( req:Request, res:Response )=>Promise< any > = asy
             },  
         ];
 
+
         const db = new Conexion();
 
-        const response : DbResponse = await db.execute('sp_gestion_ml_db_administracion_actualizacion_modulo',params);
+        const response : DbResponse = await db.execute('sp_gestion_ml_db_administracion_actualizacion_usuario',params);
 
         if(response.statusCode === -1){
             const apiResponse: ApiResponse= {

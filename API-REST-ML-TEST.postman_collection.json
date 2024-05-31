@@ -16,18 +16,19 @@
 							"name": "USERS",
 							"item": [
 								{
-									"name": "ELEMENTO UNICO",
+									"name": "ELEMENTO UNICO - DB",
 									"request": {
 										"method": "GET",
 										"header": [
 											{
 												"key": "Authenticate-Token",
 												"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIxMTQ2NDQxOTI1IiwidXNlck5hbWUiOiJEQVZJRCBFU1RFQkFOIE1PUkFMRVMgw5FVU1RFUyIsInJvbGVJZCI6MSwicm9sZU5hbWUiOiJBRE1JTklTVFJBRE9SIiwiaWF0IjoxNzEyMTY2ODQyLCJleHAiOjE3MTQ3OTY2NDJ9.wXYacZ18rV9ACP4obQoinvXVo_GZmKsQcPPCAEg2APKf5zSEUHz0rhB38TdWZVWfc93xJzZJ0Hyqnengzp9jy11tm5xV1p6iHNS0cT1fzjvOVtpn0By5N_vtrpRDo8izza3-MdEeBZflxh5V1fqOk9q5j0h3zdfkXGT0_lVN3b3lK-tSKLR_n-q49ih5MitmYiFx-btirPgn1X_H6_m7yy7c0y5WsaXKlj7n-ybw8Gkp-g35M2LDhgGtktNvj5r0b5-puCYDBaZ85fkUV4QBiagbZL2Rfb4X0W5gYjeyGtk_TsqRGfl05bpiGBaiRHRFeRiwqFLdkLl29tVuaO_9dA",
-												"type": "text"
+												"type": "text",
+												"disabled": true
 											}
 										],
 										"url": {
-											"raw": "http://localhost:8080/api/ml/administrative/user/element/1146441925",
+											"raw": "http://localhost:8080/api/ml/administrative/user/element-by-data-base/1146441925",
 											"protocol": "http",
 											"host": [
 												"localhost"
@@ -38,8 +39,126 @@
 												"ml",
 												"administrative",
 												"user",
-												"element",
+												"element-by-data-base",
 												"1146441925"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "ELEMENTO UNICO - WS",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:8080/api/ml/administrative/user/element-by-web-service?documentoId=1128401515",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"api",
+												"ml",
+												"administrative",
+												"user",
+												"element-by-web-service"
+											],
+											"query": [
+												{
+													"key": "documentoId",
+													"value": "1128401515"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "LISTA DE USUARIOS - DB",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:8080/api/ml/administrative/user/list-by-data-base/",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"api",
+												"ml",
+												"administrative",
+												"user",
+												"list-by-data-base",
+												""
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "LISTA DE USUARIOS - WS",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:8080/api/ml/administrative/user/list-by-web-service?page=1&pageSize=6",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"api",
+												"ml",
+												"administrative",
+												"user",
+												"list-by-web-service"
+											],
+											"query": [
+												{
+													"key": "page",
+													"value": "1"
+												},
+												{
+													"key": "pageSize",
+													"value": "6"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "ACTUALIZACIÓN DE ELEMENTO",
+									"request": {
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"usuario\":\"1152460381\", \r\n    \"campo\":\"doc_id\", \r\n    \"valor\":1, \r\n    \"ingresadoPor\":\"1146441925\" \r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8080/api/ml/administrative/user/update",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"api",
+												"ml",
+												"administrative",
+												"user",
+												"update"
 											]
 										}
 									},
@@ -57,7 +176,62 @@
 						},
 						{
 							"name": "MODULOS",
-							"item": []
+							"item": [
+								{
+									"name": "ACTUALIZACION DE ELEMENTO",
+									"request": {
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"modulo\":1, \r\n    \"campo\":\"estado\", \r\n    \"valor\":10, \r\n    \"ingresadoPor\":\"1146441925\" \r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8080/api/ml/administrative/modulo/update",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"api",
+												"ml",
+												"administrative",
+												"modulo",
+												"update"
+											],
+											"query": [
+												{
+													"key": "modulo",
+													"value": "1",
+													"disabled": true
+												},
+												{
+													"key": "campo",
+													"value": "revisor_actual",
+													"disabled": true
+												},
+												{
+													"key": "valor",
+													"value": "145641",
+													"disabled": true
+												},
+												{
+													"key": "ingresadoPor",
+													"value": null,
+													"disabled": true
+												}
+											]
+										}
+									},
+									"response": []
+								}
+							]
 						}
 					]
 				},
@@ -1139,7 +1313,7 @@
 										"method": "GET",
 										"header": [],
 										"url": {
-											"raw": "http://localhost:8080/api/ml/sesion/mobile/menu/1",
+											"raw": "http://localhost:8080/api/ml/sesion/mobile/menu",
 											"protocol": "http",
 											"host": [
 												"localhost"
@@ -1150,8 +1324,7 @@
 												"ml",
 												"sesion",
 												"mobile",
-												"menu",
-												"1"
+												"menu"
 											]
 										}
 									},
@@ -1192,7 +1365,7 @@
 										"method": "GET",
 										"header": [],
 										"url": {
-											"raw": "http://localhost:8080/api/ml/sesion/web/menu/1",
+											"raw": "http://localhost:8080/api/ml/sesion/web/menu",
 											"protocol": "http",
 											"host": [
 												"localhost"
@@ -1203,8 +1376,7 @@
 												"ml",
 												"sesion",
 												"web",
-												"menu",
-												"1"
+												"menu"
 											]
 										}
 									},
