@@ -125,8 +125,6 @@ export const routesAutentication : ( rolesList : number[] ) => ( req : Request, 
                 })
             }
 
-            // console.log(currentUser)
-
             const validateCurrentUser = await verifyUser(currentUser.data.userId);
             
             if(validateCurrentUser.statusCode!==1){

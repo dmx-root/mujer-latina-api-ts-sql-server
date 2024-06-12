@@ -4,13 +4,11 @@ import { dbConfig }             from './config';
 import sql                      from 'mssql';
 
 interface DbResponse {
-
     statusCode: 1 | 0 | -1,
     message?: string,
     data?: any
     information?: string,
     err?: HttpErrorResponse,
-
 }
 
 export class Conexion {

@@ -13,10 +13,10 @@ export class Routes {
 
     constructor(app:Application){
         
-        app.use('/api/ml/production/',      this.productionRoutes.productionRoutes);
-        app.use('/api/ml/administrative/',  this.administrativeRoutes.administrativeRoutes);
-        app.use('/api/ml/sesion/',          this.sesionRoutes.sesionRoutes)
-        app.use('/api/ml/auth/',            this.authRoutes.authRoutes)
+        app.use('/api/v1/ml/production/',      this.productionRoutes.productionRoutes);
+        app.use('/api/v1/ml/administrative/',  this.administrativeRoutes.administrativeRoutes);
+        app.use('/api/v1/ml/sesion/',          this.sesionRoutes.sesionRoutes)
+        app.use('/api/v1/ml/auth/',            this.authRoutes.authRoutes)
 
     }
 }
