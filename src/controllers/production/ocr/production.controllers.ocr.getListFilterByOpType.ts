@@ -32,6 +32,8 @@ export const  getListFilterByOpType : ( req:Request, res:Response ) => Promise <
         pageSize:yup.number().max(50).min(1),
     });
 
+    console.log(req.rawHeaders)
+
     const params : dbParameters[] = [
         {
             name:'tipo_op',

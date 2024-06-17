@@ -23,7 +23,7 @@ export class Server {
     private config(app:Application):void{
 
         const corsConfig : CorsOptions = {
-            origin: "http://localhost:3000",
+            origin:"http://localhost:3000",
             credentials: true
         };
 
