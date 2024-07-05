@@ -1,3 +1,3 @@
-export const SP_STAMENT ={
+export const SP_STAMENT = {
 
 }

@@ -12,6 +12,7 @@ import { checkElement }                 from '../../controllers/production/ocr/p
 import { getListFilterByOpType }        from '../../controllers/production/ocr/production.controllers.ocr.getListFilterByOpType'
 import { insertSecods }                 from '../../controllers/production/ocr/production.controllers.ocr.postSeconds';
 import { insersionOperationEvents }     from '../../controllers/production/ocr/production.controllers.ocr.postOperationEvents'
+import { getListFilterByReferenceType}  from '../../controllers/production/ocr/production.controllers.ocr.getListFilterByReferenceType';
 
 export class ProductionOcrRouter {
     
@@ -32,11 +33,12 @@ export class ProductionOcrRouter {
         this.ocrRouter.post('/segundas/',   insertSecods);
         
         this.ocrRouter.get('/list-filter-by-category/',   getListFilterByCategory);
-        this.ocrRouter.get('/list-filter-by-modulo/',  getListFilterByModulo);
+        this.ocrRouter.get('/list-filter-by-modulo/',     getListFilterByModulo);
         this.ocrRouter.get('/list-filter-by-revise/',     getListFilterByCheckState);
         this.ocrRouter.get('/list-filter-by-op-type/',    getListFilterByOpType);
+        this.ocrRouter.get('/list-filter-by-reference-type/',    getListFilterByReferenceType);
         this.ocrRouter.get('/list-filter-by-event/',      getListFilterByEvent); 
         this.ocrRouter.get('/list-filter-by-op-detail/',  getListFilterByOp);
-        this.ocrRouter.get('/list-filter-by-user/',    getListFilterByUser);
+        this.ocrRouter.get('/list-filter-by-user/',       getListFilterByUser);
     }
 }

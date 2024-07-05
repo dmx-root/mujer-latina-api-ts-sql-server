@@ -75,8 +75,6 @@ export const insertListDetailOp : (req : Request, res : Response)=> Promise<any>
         return res.status(500).json(apiResponse);
     }
 
-    console.log(req.body);
-    // console.log(req.headers);
     try {
         const params : dbParameters[] = [
             {
