@@ -3,6 +3,7 @@ import { AuthRoutes }               from './auth/auth.api.ml.index.routes';
 import { ProductionRoutes }         from './production/production.api.ml.index.routes';
 import { AdministrativeRoutes }     from './administrative/administrative.api.ml.index.routes';
 import { SesionRoutes }             from './sesion/sesion.api.ml.index.routes';
+import { ReportsRoutes }            from './reports/reports.api.ml.index.routes';
 
 export class Routes {
 
@@ -10,13 +11,14 @@ export class Routes {
     private administrativeRoutes =  new AdministrativeRoutes();
     private authRoutes =            new AuthRoutes();
     private sesionRoutes =          new SesionRoutes();
+    private reportsRoutes =         new ReportsRoutes();
 
     constructor(app:Application){
         
         app.use('/api/v1/ml/production/',      this.productionRoutes.productionRoutes);
         app.use('/api/v1/ml/administrative/',  this.administrativeRoutes.administrativeRoutes);
-        app.use('/api/v1/ml/sesion/',          this.sesionRoutes.sesionRoutes)
-        app.use('/api/v1/ml/auth/',            this.authRoutes.authRoutes)
-
+        app.use('/api/v1/ml/sesion/',          this.sesionRoutes.sesionRoutes);
+        app.use('/api/v1/ml/reports/',         this.reportsRoutes.reportsRoutes);
+        app.use('/api/v1/ml/auth/',            this.authRoutes.authRoutes);
     }
 }
