@@ -8,6 +8,7 @@ import { getListFilterByEvent }                     from '../../controllers/prod
 import { getListFilterByCategory }                  from '../../controllers/production/ocr/production.controllers.ocr.getListFilterByCategory';
 import { getListFilterByUser }                      from '../../controllers/production/ocr/production.controllers.ocr.getListFilterByUser';
 import { insertOperation }                          from '../../controllers/production/ocr/production.controllers.ocr.postOperation';
+import { insertOperationV2 }                          from '../../controllers/production/ocr/production.controllers.ocr.postOperationV2';
 import { checkElement }                             from '../../controllers/production/ocr/production.controllers.ocr.putCheckElement';
 import { getListFilterByOpType }                    from '../../controllers/production/ocr/production.controllers.ocr.getListFilterByOpType'
 import { insertSecods }                             from '../../controllers/production/ocr/production.controllers.ocr.postSeconds';
@@ -32,6 +33,7 @@ export class ProductionOcrRouter {
         this.ocrRouter.put('/element/',     checkElement);
         
         this.ocrRouter.post('/element/',    insertOperation);
+        this.ocrRouter.post('/element/v2/', insertOperationV2);
         this.ocrRouter.post('/events/',     insersionOperationEvents);
         this.ocrRouter.post('/segundas/',   insertSecods);
         
