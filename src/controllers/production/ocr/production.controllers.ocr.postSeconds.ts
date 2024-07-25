@@ -28,7 +28,8 @@ interface BodyInterface {
     talla:string,
     operarioId:string,
     moduloId:number,
-    unidades:number
+    unidades:number,
+    horario:number
 }
 
 export const insertSecods: ( req:Request,res:Response ) => Promise<any> = async ( req:Request,res:Response ) => {
@@ -51,9 +52,9 @@ export const insertSecods: ( req:Request,res:Response ) => Promise<any> = async 
             colorId:    yup.string().required("El campo 'color' no fue proporcionado en alguno de los elementos").max(5).min(3),
             talla:      yup.string().required("El campo 'talla' no fue proporcionado en alguno de los elementos").max(10).min(1),
             operarioId: yup.string().required("El campo 'operarioId' no fue proporcionado en alguno de los elementos").max(20).min(5),
-            moduloId:   yup.number().required("El campo 'moduloId' no fue proporcionado en alguno de los elementos"),
-            unidades:   yup.number().required("El campo 'unidades' no fue proporcionado en alguno de los elementos")
-    
+            moduloId:   yup.number().required("El campo 'moduloId' no fue proporcionado en alguno de los elementos").positive(),
+            unidades:   yup.number().required("El campo 'unidades' no fue proporcionado en alguno de los elementos").positive(),
+            horario:    yup.number().required("EL campo 'horario' no fue porporcionado en algunos de los elementos").positive()
         });
     
         const queve=new Queue();
@@ -159,13 +160,18 @@ export const insertSecods: ( req:Request,res:Response ) => Promise<any> = async 
                         value: null
                     },
                     {
+                        name: 'id_horario_produccion',
+                        type: sql.Int,
+                        value: element.horario
+                    },
+                    {
                         name: 'id_categoria',
                         type: sql.Int,
                         value: 2
                     }               
                 ]
             
-                const response : DbResponse = await db.execute('sp_gestion_ml_db_produccion_insercion_ocr',params);            
+                const response : DbResponse = await db.execute('sp_gestion_ml_db_produccion_tsn_insercion_ocr',params);            
                 console.log(message)
                 // console.log(response)
 
