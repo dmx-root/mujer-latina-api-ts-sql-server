@@ -175,7 +175,7 @@ export const insertOperationV2: ( req:Request,res:Response ) => Promise<any> = a
                     }               
                 ]
             
-                const response : DbResponse = await db.execute('sp_gestion_ml_db_produccion_tsn_insercion_ocr',params);            
+                const response : DbResponse = await db.execute('sp_gestion_ml_db_produccion_insercion_ocr_v2',params);            
                 console.log(message)
                 // console.log(response)
 

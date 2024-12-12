@@ -7,13 +7,11 @@ import { HttpErrorResponse }from '../../../utilities/httpErrorResponse';
 import { Queue }            from '../../../queue/queue.main.insersion';
 
 interface DbResponse {
-
     statusCode: 1 | 0 | -1,
     message?: string,
     data?: any
     information?: string,
     err?: HttpErrorResponse,
-
 }
 
 interface ApiResponse {
@@ -171,9 +169,7 @@ export const insertSecods: ( req:Request,res:Response ) => Promise<any> = async 
                     }               
                 ]
             
-                const response : DbResponse = await db.execute('sp_gestion_ml_db_produccion_tsn_insercion_ocr',params);            
-                console.log(message)
-                // console.log(response)
+                const response : DbResponse = await db.execute('sp_gestion_ml_db_produccion_insercion_ocr_v2',params);            
 
                 if(response.statusCode!==1){
                     const apiResponse : ApiResponse = {
